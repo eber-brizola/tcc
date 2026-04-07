@@ -1,7 +1,8 @@
-body {
-    background-color: rgb(66, 70, 77);
+body{
+    background-color: 
+    rgb(29, 32, 36);
 }
 
-.container-fluid{
-    color: black;
+.card{
+    background-color: whitesmoke;
 }
