@@ -17,13 +17,52 @@
                 </form>
             </div>
         </nav>
-        <div class="card">
-            <img src="midias/sla-768x474.png" class="card-img-top" alt="...">
+        <div class="container mt-4">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card">
+                        <img src="midias/sla-768x474.pn" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">Card 1</h5>
+                            <p class="card-text">Texto exemplo.</p>
+                            <a href="#" class="btn btn-primary">Ver mais</a>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                <a href="https://www.youtube.com/watch?v=QA1S4wCNvEE" class="btn btn-primary">Go somewhere</a>
+                <div class="col-md-3">
+                    <div class="card">
+                        <img src="midias/sla-768x474.pn" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">Card 2</h5>
+                            <p class="card-text">Texto exemplo.</p>
+                            <a href="#" class="btn btn-primary">Ver mais</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card">
+                        <img src="midias/sla-768x474.pn" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">Card 3</h5>
+                            <p class="card-text">Texto exemplo.</p>
+                            <a href="#" class="btn btn-primary">Ver mais</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <div class="card">
+                        <img src="midias/sla-768x474.pn" class="card-img-top" alt="">
+                        <div class="card-body">
+                            <h5 class="card-title">Card 4</h5>
+                            <p class="card-text">Texto exemplo.</p>
+                            <a href="#" class="btn btn-primary">Ver mais</a>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
