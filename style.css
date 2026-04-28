@@ -1,11 +1,24 @@
-body{
-    background-color: 
-    rgb(29, 32, 36);
-}
-
-.card{
-    background-color: whitesmoke;
-    border-radius: 40px;
-    
-
+.hero { 
+    position: relative; 
+    background: url('assets/img/hero-bg-abstract.jpg') center/cover no-repeat; 
+    min-height: 90vh; 
+    display: flex; 
+    align-items: center; 
+    color: white; 
+} 
+.hero::before { 
+    content: ""; 
+    position: absolute; 
+    inset: 0; 
+    background: rgba(0,0,0,0.65); 
+} 
+.hero .container { 
+    position: relative; 
+    z-index: 2; 
+} 
+.card { 
+    transition: 0.3s; 
+} 
+.card:hover { 
+    transform: translateY(-8px); 
 }
