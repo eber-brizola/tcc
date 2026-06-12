@@ -1,24 +1,34 @@
-.hero { 
-    position: relative; 
-    background: url('assets/img/hero-bg-abstract.jpg') center/cover no-repeat; 
-    min-height: 90vh; 
-    display: flex; 
-    align-items: center; 
-    color: white; 
-} 
-.hero::before { 
-    content: ""; 
-    position: absolute; 
-    inset: 0; 
-    background: rgba(0,0,0,0.65); 
-} 
-.hero .container { 
-    position: relative; 
-    z-index: 2; 
-} 
-.card { 
-    transition: 0.3s; 
-} 
-.card:hover { 
-    transform: translateY(-8px); 
+body{
+    background-color:#f5f7fa;
+}
+
+.hero{
+    background: linear-gradient(135deg,#0d6efd,#0a58ca);
+    color:white;
+    padding:80px 20px;
+    border-radius:15px;
+    margin-top:30px;
+    text-align:center;
+}
+
+.hero h1{
+    font-weight:700;
+}
+
+.card{
+    transition:0.3s;
+    border:none;
+    border-radius:15px;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(0,0,0,0.15);
+}
+
+footer{
+    margin-top:80px;
+    padding:20px;
+    text-align:center;
+    color:#666;
 }
