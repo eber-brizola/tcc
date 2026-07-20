@@ -1,111 +1,111 @@
-<?php
+    <?php
 
-include "includes/header.php";
-include "includes/sidebar.php";
+    include "includes/header.php";
+    include "includes/sidebar.php";
 
-?>
-
-
-<div class="content">
-
-<?php include "includes/navbar.php"; ?>
+    ?>
 
 
-<div class="container p-4">
+    <div class="content">
+
+        <?php include "includes/navbar.php"; ?>
 
 
-<h2>
-Adicionar Documento
-</h2>
+        <div class="container p-4">
 
 
-<form>
+            <h2>
+                Adicionar Documento
+            </h2>
 
 
-<div class="mb-3">
-
-<label>
-Nome do Documento
-</label>
-
-<input type="text" class="form-control">
-
-</div>
+            <form action="salvar_documento.php" method="POST" enctype="multipart/form-data">
 
 
+                <div class="mb-3">
 
-<div class="mb-3">
+                    <label>
+                        Nome do Documento
+                    </label>
 
-<label>
-Categoria
-</label>
+                    <input type="text" class="form-control" name="nome">
 
-
-<select class="form-control">
-
-<option>
-Atas
-</option>
-
-<option>
-Leis
-</option>
-
-<option>
-Regimentos
-</option>
-
-
-</select>
-
-
-</div>
+                </div>
 
 
 
-<div class="mb-3">
+                <div class="mb-3">
 
-<label>
-Arquivo
-</label>
-
-
-<input type="file" class="form-control">
+                    <label>
+                        Categoria
+                    </label>
 
 
-</div>
+                    <select name="categoria" class="form-control">
+
+                        <option value="1">
+                            Atas
+                        </option>
+
+                        <option value="2">
+                            Leis
+                        </option>
+
+                        <option value="3">
+                            Regimentos
+                        </option>
+
+
+                    </select>
+
+
+                </div>
 
 
 
-<!--
-BACK-END:
+                <div class="mb-3">
 
-Enviar arquivo para pasta uploads/
-
-Salvar dados no banco.
-
--->
+                    <label>
+                        Arquivo
+                    </label>
 
 
-
-<button class="btn btn-primary">
-
-Salvar Documento
-
-</button>
+                    <input type="file" name="arquivo" class="form-control">
 
 
-</form>
+                </div>
 
 
-</div>
 
-</div>
+                <!--
+    BACK-END:
+
+    Enviar arquivo para pasta uploads/
+
+    Salvar dados no banco.
+
+    -->
 
 
-<?php
 
-include "includes/footer.php";
-include "includes/scripts.php";
+                <button type="submit" class="btn btn-primary">
 
-?>
+                    Salvar Documento
+
+                </button>
+
+
+            </form>
+
+
+        </div>
+
+    </div>
+
+
+    <?php
+
+    include "includes/footer.php";
+    include "includes/scripts.php";
+
+    ?>
