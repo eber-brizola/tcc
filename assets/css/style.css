@@ -1,0 +1,38 @@
+body{
+    background:#f5f6fa;
+}
+
+.hero{
+    background:linear-gradient(135deg,#0d6efd,#0b5ed7);
+    color:#fff;
+    text-align:center;
+    padding:90px 30px;
+    border-radius:15px;
+    margin-top:30px;
+}
+
+.hero h1{
+    font-weight:bold;
+}
+
+.card{
+    border:none;
+    border-radius:12px;
+    transition:.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+section{
+    margin-bottom:70px;
+}
+
+.table{
+    background:#fff;
+}
+
+footer{
+    margin-top:80px;
+}
