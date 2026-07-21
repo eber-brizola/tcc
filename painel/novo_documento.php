@@ -44,15 +44,15 @@
                     <select name="categoria" class="form-control">
 
                         <option value="1">
-                            Atas
+                            atas
                         </option>
 
                         <option value="2">
-                            Leis
+                            leis
                         </option>
 
                         <option value="3">
-                            Regimentos
+                            regimentos
                         </option>
 
 
@@ -106,6 +106,5 @@
     <?php
 
     include "includes/footer.php";
-    include "includes/scripts.php";
 
     ?>
