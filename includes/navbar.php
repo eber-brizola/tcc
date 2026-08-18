@@ -26,7 +26,7 @@
                 </li>
 
                 <li class="nav-item ms-lg-3">
-                    <a class="btn btn-light btn-sm" href="painel/">
+                    <a class="btn btn-light btn-sm" href="login/">
                        <strong> Área Administrativa </strong>
                     </a>
                 </li>
