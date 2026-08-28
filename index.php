@@ -1,3 +1,31 @@
+<?php
+require_once "painel/conexao.php";
+
+$sqlCategorias = "SELECT id_categoria, nome_categoria
+                  FROM categorias
+                  ORDER BY nome_categoria ASC";
+
+$categorias = mysqli_query($conexao, $sqlCategorias);
+
+
+$sqlDocumentos = "SELECT documentos.id_documento,
+                         documentos.nome,
+                         documentos.caminho,
+                         documentos.data_upload,
+                         categorias.nome_categoria
+                  FROM documentos
+                  INNER JOIN categorias
+                      ON documentos.id_categoria = categorias.id_categoria
+                  ORDER BY documentos.data_upload DESC
+                  LIMIT 10";
+
+$ultimosDocumentos = mysqli_query($conexao, $sqlDocumentos);
+
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -87,152 +115,64 @@
 
 
 
-            <div class="col-md-6 col-lg-3">
+          <?php while ($categoria = mysqli_fetch_assoc($categorias)): ?>
 
-                <div class="card shadow-sm h-100">
+    <?php
+        $nomeCategoria = mb_strtolower($categoria["nome_categoria"], "UTF-8");
 
+        $icone = "bi-folder";
+        $cor = "text-warning";
+        $descricao = "Documentos disponíveis nesta categoria.";
 
-                    <div class="card-body text-center">
+        if ($nomeCategoria === "atas") {
+            $icone = "bi-file-earmark-text";
+            $cor = "text-success";
+            $descricao = "Atas de reuniões e conselhos.";
+        } elseif ($nomeCategoria === "leis") {
+            $icone = "bi-bank";
+            $cor = "text-danger";
+            $descricao = "Leis, normas e resoluções.";
+        } elseif ($nomeCategoria === "regimentos") {
+            $icone = "bi-folder-check";
+            $cor = "text-warning";
+            $descricao = "Regulamentos internos.";
+        } elseif ($nomeCategoria === "trabalhos") {
+            $icone = "bi-journal-text";
+            $cor = "text-primary";
+            $descricao = "Trabalhos e projetos escolares.";
+        }
 
+        
+    ?>
 
-                        <i class="bi bi-journal-text fs-1 text-primary"></i>
+    <div class="col-md-6 col-lg-3">
 
+        <a
+            href="categoria.php?id=<?= $categoria["id_categoria"] ?>"
+            class="text-decoration-none text-dark"
+        >
+            <div class="card shadow-sm h-100">
 
-                        <h5 class="mt-3">
+                <div class="card-body text-center">
 
-                            Trabalhos
+                    <i class="bi <?= $icone ?> fs-1 <?= $cor ?>"></i>
 
-                        </h5>
+                    <h5 class="mt-3">
+                        <?= htmlspecialchars($categoria["nome_categoria"]) ?>
+                    </h5>
 
-
-                        <p class="text-muted">
-
-                            Trabalhos e projetos escolares.
-
-                        </p>
-
-
-                    </div>
-
-
-                </div>
-
-
-            </div>
-
-
-
-
-            <div class="col-md-6 col-lg-3">
-
-
-                <div class="card shadow-sm h-100">
-
-
-                    <div class="card-body text-center">
-
-
-                        <i class="bi bi-file-earmark-text fs-1 text-success"></i>
-
-
-                        <h5 class="mt-3">
-
-                            Atas
-
-                        </h5>
-
-
-                        <p class="text-muted">
-
-                            Atas de reuniões e conselhos.
-
-                        </p>
-
-
-                    </div>
-
+                    <p class="text-muted">
+                        <?= $descricao ?>
+                    </p>
 
                 </div>
 
-
             </div>
+        </a>
 
+    </div>
 
-
-
-            <div class="col-md-6 col-lg-3">
-
-
-                <div class="card shadow-sm h-100">
-
-
-                    <div class="card-body text-center">
-
-
-                        <i class="bi bi-bank fs-1 text-danger"></i>
-
-
-                        <h5 class="mt-3">
-
-                            Leis
-
-                        </h5>
-
-
-                        <p class="text-muted">
-
-                            Leis, normas e resoluções.
-
-                        </p>
-
-
-                    </div>
-
-
-                </div>
-
-
-            </div>
-
-
-
-
-            <div class="col-md-6 col-lg-3">
-
-
-                <div class="card shadow-sm h-100">
-
-
-                    <div class="card-body text-center">
-
-
-                        <i class="bi bi-folder-check fs-1 text-warning"></i>
-
-
-                        <h5 class="mt-3">
-
-                            Regimentos
-
-                        </h5>
-
-
-                        <p class="text-muted">
-
-                            Regulamentos internos.
-
-                        </p>
-
-
-                    </div>
-
-
-                </div>
-
-
-            </div>
-
-
-
+<?php endwhile; ?>
         </div>
 
 
@@ -298,47 +238,62 @@
                 </thead>
 
 
+<tbody>
 
-                <tbody>
+    <?php if (mysqli_num_rows($ultimosDocumentos) > 0): ?>
 
+        <?php while ($documento = mysqli_fetch_assoc($ultimosDocumentos)): ?>
 
+            <tr>
 
-                    <tr>
+                <td>
+                    <?= htmlspecialchars($documento["nome"]) ?>
+                </td>
 
-                        <td>Ata da Reunião Pedagógica.pdf</td>
+                <td>
+                    <?= htmlspecialchars($documento["nome_categoria"]) ?>
+                </td>
 
-                        <td>Atas</td>
+                <td>
+                    <?= date("d/m/Y", strtotime($documento["data_upload"])) ?>
+                </td>
 
-                        <td>13/07/2026</td>
+                <td>
 
+                    <a
+                        href="visualizar.php?id=<?= $documento["id_documento"] ?>"
+                        target="_blank"
+                        class="btn btn-primary btn-sm"
+                    >
+                        <i class="bi bi-eye"></i>
+                        Visualizar
+                    </a>
 
-                        <td>
+                    <a
+                        href="download.php?id=<?= $documento["id_documento"] ?>"
+                        class="btn btn-success btn-sm"
+                    >
+                        <i class="bi bi-download"></i>
+                        Download
+                    </a>
 
+                </td>
 
-                            <button class="btn btn-primary btn-sm">
+            </tr>
 
-                                <i class="bi bi-eye"></i>
-                                Visualizar
+        <?php endwhile; ?>
 
-                            </button>
+    <?php else: ?>
 
+        <tr>
+            <td colspan="4" class="text-center text-muted">
+                Nenhum documento publicado ainda.
+            </td>
+        </tr>
 
-                            <button class="btn btn-success btn-sm">
+    <?php endif; ?>
 
-                                <i class="bi bi-download"></i>
-                                Download
-
-                            </button>
-
-
-                        </td>
-
-
-                    </tr>
-
-
-
-                </tbody>
+</tbody>
 
 
             </table>
