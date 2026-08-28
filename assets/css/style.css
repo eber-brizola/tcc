@@ -2,14 +2,44 @@ body{
     background:#f5f6fa;
 }
 
-.navbar {
-     background:linear-gradient(135deg,#07306d,#07306d);
-    color:#fff;
+.navbar-portal {
+    background: #07306d;
+    padding: 12px 0;
 }
 
-.collapse {
-    font-size: 20px
+.navbar-portal .navbar-brand {
+    font-size: 1.25rem;
+}
 
+.navbar-portal .nav-link {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 8px 12px;
+    transition: 0.2s;
+}
+
+.navbar-portal .nav-link:hover,
+.navbar-portal .nav-link:focus {
+    color: #ffffff;
+}
+
+.btn-area-adm {
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    border-radius: 7px;
+    color: #07306d;
+    font-size: 0.95rem;
+    font-weight: 700;
+    padding: 8px 14px;
+    transition: 0.2s;
+}
+
+.btn-area-adm:hover {
+    background: #dce9ff;
+    border-color: #dce9ff;
+    color: #07306d;
+    transform: translateY(-1px);
 }
 .hero{
     background:linear-gradient(135deg,#07306d,#07306d);

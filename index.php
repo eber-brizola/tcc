@@ -101,17 +101,7 @@ $ultimosDocumentos = mysqli_query($conexao, $sqlDocumentos);
         </h2>
 
 
-        <!--
-            BACK-END:
-
-            Buscar categorias do banco de dados.
-
-            Exemplo:
-            SELECT * FROM categorias
-        -->
-
-
-        <div class="row g-4">
+        <div class="row g-4 justify-content-center">
 
 
 
@@ -151,7 +141,7 @@ $ultimosDocumentos = mysqli_query($conexao, $sqlDocumentos);
             href="categoria.php?id=<?= $categoria["id_categoria"] ?>"
             class="text-decoration-none text-dark"
         >
-            <div class="card shadow-sm h-100">
+            <div class="card shadow-sm h-100 categoria-card">
 
                 <div class="card-body text-center">
 
