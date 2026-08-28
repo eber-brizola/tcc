@@ -20,7 +20,7 @@
 					<h2 class="heading-section">ENTRAR</h2>
 				</div>
 			</div>
-			<form action="../autentica.php">
+			<form action="../autentica.php" method="POST">
 				<div class="row justify-content-center">
 					<div class="col-md-7 col-lg-5">
 						<div class="login-wrap p-4 p-md-5">
@@ -28,9 +28,8 @@
 						<span class="fa fa-user-o"></span>
 					</div>
 					<h3 class="text-center mb-4">Sign In</h3>
-							<form action="../autentica.php" class="login-form">
 						<div class="form-group">
-							<input type="text" class="form-control rounded-left" placeholder="Username" name="cpf_operador" id="cpf_operador" required>
+							<input type="email" class="form-control rounded-left" placeholder="Username" name="email_operador" id="email_operador" required>
 						</div>
 					<div class="form-group d-flex">
 					<input type="password" class="form-control rounded-left" placeholder="Password" name="senha_operador" id="cpf_operador" required>
@@ -49,7 +48,6 @@
 										<a href="#">Forgot Password</a>
 									</div>
 					</div>
-				</form>
 				</div>
 					</div>
 				</div>
