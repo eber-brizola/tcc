@@ -1,54 +1,68 @@
-<div class="sidebar">
+<?php
+$paginaAtual = basename($_SERVER["PHP_SELF"]);
+?>
 
-<h3 class="text-center">
-CEEDO
-</h3>
+<aside class="sidebar">
 
-<p class="text-center">
-Painel Administrativo
-</p>
+    <div class="sidebar-logo">
+        <div class="logo-icon">
+            <i class="bi bi-building"></i>
+        </div>
 
+        <div>
+            <h3>CEEDO</h3>
+            <p>Painel Administrativo</p>
+        </div>
+    </div>
 
-<hr>
+    <hr>
 
+    <p class="sidebar-titulo">MENU PRINCIPAL</p>
 
-<a href="index.php">
-<i class="bi bi-house"></i>
-Dashboard
-</a>
+    <a
+        href="index.php"
+        class="<?= $paginaAtual === "index.php" ? "active" : "" ?>"
+    >
+        <i class="bi bi-grid-1x2"></i>
+        Dashboard
+    </a>
 
+    <a
+        href="novo_documento.php"
+        class="<?= $paginaAtual === "novo_documento.php" ? "active" : "" ?>"
+    >
+        <i class="bi bi-cloud-arrow-up"></i>
+        Adicionar documento
+    </a>
 
-<a href="novo_documento.php">
-<i class="bi bi-cloud-upload"></i>
-Adicionar Documento
-</a>
+    <a
+        href="documentos.php"
+        class="<?= $paginaAtual === "documentos.php" ? "active" : "" ?>"
+    >
+        <i class="bi bi-files"></i>
+        Documentos
+    </a>
 
+    <a
+        href="categorias.php"
+        class="<?= $paginaAtual === "categorias.php" ? "active" : "" ?>"
+    >
+        <i class="bi bi-tags"></i>
+        Categorias
+    </a>
 
-<a href="documentos.php">
-<i class="bi bi-folder"></i>
-Documentos
-</a>
+    <div class="sidebar-rodape">
 
+        <a href="../index.php" target="_blank">
+            <i class="bi bi-box-arrow-up-right"></i>
+            Ver portal público
+        </a>
 
-<a href="categorias.php">
-<i class="bi bi-tags"></i>
-Categorias
-</a>
+        <a href="../login/" class="sair">
+            <i class="bi bi-box-arrow-left"></i>
+            Sair
+        </a>
 
+    </div>
 
-<a href="#">
-<i class="bi bi-gear"></i>
-Configurações
-</a>
-
-
-<hr>
-
-
-<a href="#">
-<i class="bi bi-box-arrow-right"></i>
-Sair
-</a>
-
-
-</div>
+</aside>

@@ -1,110 +1,167 @@
-    <?php
+<?php
+require_once "conexao.php";
 
-    include "includes/header.php";
-    include "includes/sidebar.php";
+$sqlCategorias = "SELECT id_categoria, nome_categoria
+                  FROM categorias
+                  ORDER BY nome_categoria ASC";
 
-    ?>
+$categorias = mysqli_query($conexao, $sqlCategorias);
 
+include "includes/header.php";
+include "includes/sidebar.php";
+?>
 
-    <div class="content">
+<div class="content">
 
-        <?php include "includes/navbar.php"; ?>
+    <?php include "includes/navbar.php"; ?>
 
+    <main class="container-fluid p-4 p-lg-5">
 
-        <div class="container p-4">
+        <section class="pagina-top">
 
+            <div class="d-flex align-items-center gap-3">
 
-            <h2>
-                Adicionar Documento
-            </h2>
-
-
-            <form action="salvar_documento.php" method="POST" enctype="multipart/form-data">
-
-
-                <div class="mb-3">
-
-                    <label>
-                        Nome do Documento
-                    </label>
-
-                    <input type="text" class="form-control" name="nome">
-
+                <div class="pagina-top-icone">
+                    <i class="bi bi-cloud-arrow-up"></i>
                 </div>
 
+                <div>
+                    <p class="text-primary fw-semibold mb-1">
+                        Documentos
+                    </p>
 
+                    <h1>Adicionar documento</h1>
 
-                <div class="mb-3">
-
-                    <label>
-                        Categoria
-                    </label>
-
-
-                    <select name="categoria" class="form-control">
-
-                        <option value="1">
-                            atas
-                        </option>
-
-                        <option value="2">
-                            leis
-                        </option>
-
-                        <option value="3">
-                            regimentos
-                        </option>
-
-
-                    </select>
-
-
+                    <p class="text-muted mb-0">
+                        Preencha os dados e envie o arquivo para publicação.
+                    </p>
                 </div>
 
+            </div>
 
+            <a href="documentos.php" class="btn btn-outline-primary">
+                <i class="bi bi-arrow-left"></i>
+                Voltar
+            </a>
 
-                <div class="mb-3">
+        </section>
 
-                    <label>
-                        Arquivo
-                    </label>
+        <section class="card formulario-documento">
 
+            <div class="card-body p-4 p-lg-5">
 
-                    <input type="file" name="arquivo" class="form-control">
+                <form
+                    action="salvar_documento.php"
+                    method="POST"
+                    enctype="multipart/form-data"
+                >
 
+                    <div class="row g-4">
 
-                </div>
+                        <div class="col-lg-7">
 
+                            <div class="mb-4">
 
+                                <label for="nome" class="form-label">
+                                    Nome do documento
+                                </label>
 
-                <!--
-    BACK-END:
+                                <input
+                                    type="text"
+                                    class="form-control form-control-lg"
+                                    name="nome"
+                                    id="nome"
+                                    placeholder="Ex.: Ata da reunião pedagógica"
+                                    required
+                                >
 
-    Enviar arquivo para pasta uploads/
+                            </div>
 
-    Salvar dados no banco.
+                            <div>
 
-    -->
+                                <label for="categoria" class="form-label">
+                                    Categoria
+                                </label>
 
+                                <select
+                                    name="categoria"
+                                    id="categoria"
+                                    class="form-select form-select-lg"
+                                    required
+                                >
 
+                                    <option value="">
+                                        Selecione uma categoria
+                                    </option>
 
-                <button type="submit" class="btn btn-primary">
+                                    <?php while ($categoria = mysqli_fetch_assoc($categorias)): ?>
 
-                    Salvar Documento
+                                        <option value="<?= $categoria["id_categoria"] ?>">
+                                            <?= htmlspecialchars($categoria["nome_categoria"]) ?>
+                                        </option>
 
-                </button>
+                                    <?php endwhile; ?>
 
+                                </select>
 
-            </form>
+                            </div>
 
+                        </div>
 
-        </div>
+                        <div class="col-lg-5">
 
-    </div>
+                            <label for="arquivo" class="form-label">
+                                Arquivo
+                            </label>
 
+                            <label for="arquivo" class="area-upload">
 
-    <?php
+                                <i class="bi bi-file-earmark-arrow-up"></i>
 
-    include "includes/footer.php";
+                                <strong>Selecionar arquivo</strong>
 
-    ?>
+                                <span id="nomeArquivo">
+                                    Clique nesta área para procurar no computador.
+                                </span>
+
+                                <input
+                                    type="file"
+                                    name="arquivo"
+                                    id="arquivo"
+                                    required
+                                >
+
+                            </label>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <hr class="my-5">
+
+                    <div class="d-flex flex-wrap justify-content-end gap-2">
+
+                        <a href="documentos.php" class="btn btn-light">
+                            Cancelar
+                        </a>
+
+                        <button type="submit" class="btn btn-primary px-4">
+                            <i class="bi bi-cloud-arrow-up"></i>
+                            Salvar documento
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<?php include "includes/footer.php"; ?>
