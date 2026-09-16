@@ -35,38 +35,47 @@ include "includes/sidebar.php";
                 <h5 class="card-title mb-3">Nova categoria</h5>
 
                 <form action="salvar_categoria.php" method="POST">
+                    <div class="mb-3">
+                        <label for="nome_categoria" class="form-label">
+                            Nome da categoria
+                        </label>
 
-                    <div class="row g-3 align-items-end">
-
-                        <div class="col-md-8">
-
-                            <label for="nome_categoria" class="form-label">
-                                Nome da categoria
-                            </label>
-
-                            <input
-                                type="text"
-                                name="nome_categoria"
-                                id="nome_categoria"
-                                class="form-control"
-                                placeholder="Ex.: Trabalhos"
-                                required
-                                maxlength="100"
-                            >
-
-                        </div>
-
-                        <div class="col-md-4">
-
-                            <button type="submit" class="btn btn-primary w-100">
-                                <i class="bi bi-plus-circle"></i>
-                                Adicionar categoria
-                            </button>
-
-                        </div>
-
+                        <input
+                            type="text"
+                            name="nome_categoria"
+                            id="nome_categoria"
+                            class="form-control"
+                            placeholder="Ex.: Trabalhos"
+                            maxlength="100"
+                            required
+                        >
                     </div>
 
+                    <div class="mb-3">
+                        <label for="info_categoria" class="form-label">
+                            Descrição
+                        </label>
+
+                        <textarea
+                            name="info_categoria"
+                            id="info_categoria"
+                            class="form-control"
+                            rows="3"
+                            maxlength="255"
+                            placeholder="Ex.: Trabalhos e projetos desenvolvidos pelos alunos."
+                        ></textarea>
+
+                        <div class="form-text">
+                            Opcional. Esse texto aparecerá no card da categoria.
+                        </div>
+                    </div>
+
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-plus-circle"></i>
+                            Adicionar categoria
+                        </button>
+                    </div>
                 </form>
 
             </div>

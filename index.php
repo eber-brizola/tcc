@@ -108,31 +108,99 @@ $ultimosDocumentos = mysqli_query($conexao, $sqlDocumentos);
           <?php while ($categoria = mysqli_fetch_assoc($categorias)): ?>
 
     <?php
-        $nomeCategoria = mb_strtolower($categoria["nome_categoria"], "UTF-8");
+    $nomeOriginal = trim($categoria["nome_categoria"]);
 
-        $icone = "bi-folder";
-        $cor = "text-warning";
-        $descricao = "Documentos disponíveis nesta categoria.";
+    // Deixa somente a primeira letra maiúscula, preservando o restante.
+    $nomeExibicao =
+        mb_strtoupper(mb_substr($nomeOriginal, 0, 1, "UTF-8"), "UTF-8")
+        . mb_substr($nomeOriginal, 1, null, "UTF-8");
 
-        if ($nomeCategoria === "atas") {
-            $icone = "bi-file-earmark-text";
-            $cor = "text-success";
-            $descricao = "Atas de reuniões e conselhos.";
-        } elseif ($nomeCategoria === "leis") {
-            $icone = "bi-bank";
-            $cor = "text-danger";
-            $descricao = "Leis, normas e resoluções.";
-        } elseif ($nomeCategoria === "regimentos") {
-            $icone = "bi-folder-check";
-            $cor = "text-warning";
-            $descricao = "Regulamentos internos.";
-        } elseif ($nomeCategoria === "trabalhos") {
-            $icone = "bi-journal-text";
-            $cor = "text-primary";
-            $descricao = "Trabalhos e projetos escolares.";
-        }
+    $nomeCategoria = mb_strtolower($nomeOriginal, "UTF-8");
 
-        
+    // Ícone, cor e descrição de cada categoria.
+    $estilos = [
+        "atas" => [
+            "bi-file-earmark-text",
+            "text-success",
+            "Atas de reuniões e conselhos."
+        ],
+        "leis" => [
+            "bi-bank",
+            "text-danger",
+            "Leis, normas e resoluções."
+        ],
+        "regimentos" => [
+            "bi-folder-check",
+            "text-warning",
+            "Regulamentos internos."
+        ],
+        "trabalhos" => [
+            "bi-journal-text",
+            "text-primary",
+            "Trabalhos e atividades escolares."
+        ],
+        "projetos" => [
+            "bi-lightbulb",
+            "text-warning",
+            "Projetos desenvolvidos pela instituição."
+        ],
+        "editais" => [
+            "bi-megaphone",
+            "text-danger",
+            "Editais e chamadas públicas."
+        ],
+        "calendários" => [
+            "bi-calendar-event",
+            "text-primary",
+            "Datas e eventos do calendário escolar."
+        ],
+        "relatórios" => [
+            "bi-bar-chart",
+            "text-success",
+            "Relatórios e resultados da instituição."
+        ],
+        "comunicados" => [
+            "bi-chat-left-text",
+            "text-primary",
+            "Avisos e comunicados da escola."
+        ],
+        "contratos" => [
+            "bi-pen",
+            "text-secondary",
+            "Contratos e acordos institucionais."
+        ],
+        "prestações de contas" => [
+            "bi-cash-coin",
+            "text-success",
+            "Demonstrativos e prestação de contas."
+        ],
+        "cardápios" => [
+            "bi-cup-hot",
+            "text-danger",
+            "Cardápios da alimentação escolar."
+        ],
+        "horários" => [
+            "bi-clock",
+            "text-primary",
+            "Horários de aulas e atividades."
+        ],
+        "eventos" => [
+            "bi-calendar-check",
+            "text-success",
+            "Eventos e atividades escolares."
+        ],
+        "manuais" => [
+            "bi-book",
+            "text-secondary",
+            "Manuais e orientações."
+        ]
+    ];
+
+    [$icone, $cor, $descricao] = $estilos[$nomeCategoria] ?? [
+        "bi-folder",
+        "text-warning",
+        "Documentos disponíveis nesta categoria."
+    ];
     ?>
 
     <div class="col-md-6 col-lg-3">
@@ -147,12 +215,20 @@ $ultimosDocumentos = mysqli_query($conexao, $sqlDocumentos);
 
                     <i class="bi <?= $icone ?> fs-1 <?= $cor ?>"></i>
 
-                    <h5 class="mt-3">
-                        <?= htmlspecialchars($categoria["nome_categoria"]) ?>
-                    </h5>
+                    <h4 class="mt-3">
+                        <?= htmlspecialchars($nomeExibicao, ENT_QUOTES, "UTF-8") ?>
+                    </h4>
 
                     <p class="text-muted">
-                        <?= $descricao ?>
+                        <?php
+                        $descricaoExibida = trim($categoria['info_categoria'] ?? '');
+
+                        if ($descricaoExibida === '') {
+                            $descricaoExibida = $descricao;
+                        }
+                        ?>
+
+                        <?= htmlspecialchars($descricaoExibida, ENT_QUOTES, 'UTF-8') ?>
                     </p>
 
                 </div>
@@ -183,25 +259,6 @@ $ultimosDocumentos = mysqli_query($conexao, $sqlDocumentos);
             Últimos Documentos Publicados
 
         </h2>
-
-
-
-        <!--
-            BACK-END:
-
-            Buscar documentos no banco.
-
-            Campos:
-
-            id
-            nome
-            categoria
-            arquivo
-            data_upload
-
-        -->
-
-
 
         <div class="table-responsive">
 

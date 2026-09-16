@@ -15,6 +15,12 @@ include "includes/sidebar.php";
 
     <main class="container-fluid p-4 p-lg-5">
 
+        <?php if (isset($_GET['mensagem']) && is_string($_GET['mensagem'])): ?>
+            <div class="alert alert-<?= ($_GET['tipo'] ?? '') === 'sucesso' ? 'success' : 'danger' ?>" role="alert">
+                <?= htmlspecialchars($_GET['mensagem'], ENT_QUOTES, 'UTF-8') ?>
+            </div>
+        <?php endif; ?>
+
         <section class="pagina-top">
 
             <div class="d-flex align-items-center gap-3">
@@ -124,13 +130,18 @@ include "includes/sidebar.php";
                                                 Visualizar
                                             </a>
 
-                                            <a
-                                                href="../download.php?id=<?= $documento["id_documento"] ?>"
-                                                class="btn btn-sm btn-primary"
-                                                title="Baixar documento"
+                                            <form
+                                                action="excluir_documento.php"
+                                                method="POST"
+                                                class="d-inline"
+                                                onsubmit="return confirm('Deseja excluir este documento do portal?');"
                                             >
-                                                <i class="bi bi-download"></i>
-                                            </a>
+                                                <input type="hidden" name="id_documento" value="<?= (int) $documento['id_documento'] ?>">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger" title="Excluir documento">
+                                                    <i class="bi bi-trash"></i>
+                                                    Excluir
+                                                </button>
+                                            </form>
 
                                         </td>
 

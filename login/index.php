@@ -27,25 +27,25 @@
 					<div class="icon d-flex align-items-center justify-content-center">
 						<span class="fa fa-user-o"></span>
 					</div>
-					<h3 class="text-center mb-4">Sign In</h3>
+					<h3 class="text-center mb-4">Entrar no painel de administração</h3>
 						<div class="form-group">
-							<input type="email" class="form-control rounded-left" placeholder="Username" name="email_operador" id="email_operador" required>
+							<input type="email" class="form-control rounded-left" placeholder="Email de usuário" name="email_operador" id="email_operador" required>
 						</div>
 					<div class="form-group d-flex">
-					<input type="password" class="form-control rounded-left" placeholder="Password" name="senha_operador" id="cpf_operador" required>
+					<input type="password" class="form-control rounded-left" placeholder="Senha" name="senha_operador" id="cpf_operador" required>
 					</div>
 					<div class="form-group">
-						<button type="submit" class="form-control btn btn-primary rounded submit px-3">Login</button>
+						<button type="submit" class="form-control btn btn-primary rounded submit px-3">Entrar</button>
 					</div>
 					<div class="form-group d-md-flex">
 						<div class="w-50">
-							<label class="checkbox-wrap checkbox-primary">Remember Me
+							<label class="checkbox-wrap checkbox-primary">Lembre-se de mim	
 										<input type="checkbox" checked>
 										<span class="checkmark"></span>
 										</label>
 									</div>
 									<div class="w-50 text-md-right">
-										<a href="#">Forgot Password</a>
+										<a href="#">Recuperar senha</a>
 									</div>
 					</div>
 				</div>

@@ -81,8 +81,16 @@ $categorias = mysqli_query($conexao, $sqlCategorias);
                                 <?= htmlspecialchars($categoria["nome_categoria"]) ?>
                             </h4>
 
-                            <p class="text-muted mb-0">
-                                <?= $descricao ?>
+                            <p class="text-muted">
+                                <?php
+                                $descricaoExibida = trim($categoria['info_categoria'] ?? '');
+
+                                if ($descricaoExibida === '') {
+                                    $descricaoExibida = $descricao;
+                                }
+                                ?>
+
+                                <?= htmlspecialchars($descricaoExibida, ENT_QUOTES, 'UTF-8') ?>
                             </p>
 
                         </div>
