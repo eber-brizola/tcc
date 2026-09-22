@@ -4,7 +4,9 @@ require_once "conexao.php";
 $mensagem = $_GET["mensagem"] ?? "";
 $tipo = $_GET["tipo"] ?? "";
 
-$sqlCategorias = "SELECT id_categoria, nome_categoria
+$sqlCategorias = "SELECT id_categoria,
+                         nome_categoria,
+                         info_categoria
                   FROM categorias
                   ORDER BY nome_categoria ASC";
 
@@ -114,6 +116,14 @@ include "includes/sidebar.php";
                                         </td>
 
                                         <td class="text-end">
+
+                                            <a
+                                                href="editar_categoria.php?id=<?= (int) $categoria['id_categoria'] ?>"
+                                                class="btn btn-warning btn-sm"
+                                            >
+                                                <i class="bi bi-pencil"></i>
+                                                Editar
+                                            </a>
 
                                             <form
                                                 action="remover_categoria.php"
