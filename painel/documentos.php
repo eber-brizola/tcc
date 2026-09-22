@@ -130,6 +130,14 @@ include "includes/sidebar.php";
                                                 Visualizar
                                             </a>
 
+                                            <a
+                                                href="editar_documento.php?id=<?= (int) $documento['id_documento'] ?>"
+                                                class="btn btn-sm btn-outline-warning"
+                                            >
+                                                <i class="bi bi-pencil"></i>
+                                                Editar
+                                            </a>
+
                                             <form
                                                 action="excluir_documento.php"
                                                 method="POST"

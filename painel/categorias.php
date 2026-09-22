@@ -34,7 +34,7 @@ include "includes/sidebar.php";
 
                 <h5 class="card-title mb-3">Nova categoria</h5>
 
-                <form action="salvar_categoria.php" method="POST">
+                <form action="salvar_categoria.php" method="POST" enctype="multipart/form-data">
                     <div class="mb-3">
                         <label for="nome_categoria" class="form-label">
                             Nome da categoria
