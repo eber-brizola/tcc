@@ -1,7 +1,9 @@
 <?php
 require_once "painel/conexao.php";
 
-$sqlCategorias = "SELECT id_categoria, nome_categoria
+$sqlCategorias = "SELECT id_categoria,
+                         nome_categoria,
+                         info_categoria
                   FROM categorias
                   ORDER BY nome_categoria ASC";
 

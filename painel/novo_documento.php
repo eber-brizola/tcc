@@ -128,6 +128,7 @@ include "includes/sidebar.php";
                                     type="file"
                                     name="arquivo"
                                     id="arquivo"
+                                    accept=".pdf,.jpg,.jpeg,.png"
                                     required
                                 >
 
