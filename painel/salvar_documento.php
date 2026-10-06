@@ -1,4 +1,6 @@
 <?php
+
+require_once __DIR__ . '/includes/verifica_login.php';
 require_once __DIR__ . "/conexao.php";
 
 // Redireciona para a listagem com uma mensagem.

@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/includes/verifica_login.php';
 require_once __DIR__ . "/conexao.php";
 
 // Faz os erros do MySQLi gerarem exceções para o catch.

@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/includes/verifica_login.php';
 include "conexao.php";
 include "includes/funcoes.php";
 

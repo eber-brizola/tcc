@@ -1,5 +1,6 @@
 <?php
 require_once "conexao.php";
+require_once __DIR__ . '/includes/verifica_login.php';
 
 $sqlTotalDocumentos = "SELECT COUNT(*) AS total FROM documentos";
 $totalDocumentos = mysqli_fetch_assoc(
@@ -8,7 +9,7 @@ $totalDocumentos = mysqli_fetch_assoc(
 
 $sqlTotalCategorias = "SELECT COUNT(*) AS total FROM categorias";
 $totalCategorias = mysqli_fetch_assoc(
-    mysqli_query($conexao, $sqlTotalCategorias)
+    mysqli_query($conexao, $sqlTotalCategorias) 
 )["total"];
 
 $sqlUltimoDocumento = "SELECT nome, data_upload

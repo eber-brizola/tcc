@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/includes/verifica_login.php';
 require_once "conexao.php";
 
 $mensagem = $_GET["mensagem"] ?? "";
