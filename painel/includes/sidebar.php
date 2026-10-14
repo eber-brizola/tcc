@@ -1,5 +1,10 @@
 <?php
 $paginaAtual = basename($_SERVER["PHP_SELF"]);
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 ?>
 
 <aside class="sidebar">
@@ -58,10 +63,20 @@ $paginaAtual = basename($_SERVER["PHP_SELF"]);
             Ver portal público
         </a>
 
-        <a href="../login/" class="sair">
-            <i class="bi bi-box-arrow-left"></i>
-            Sair
-        </a>
+        
+        <form action="logout.php" method="POST">
+            <input
+                type="hidden"
+                name="csrf_token"
+                value="<?= htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8') ?>"
+            >
+
+            <button type="submit" class="sair">
+                <i class="bi bi-box-arrow-left"></i>
+                Sair
+            </button>
+        </form>
+
 
     </div>
 
