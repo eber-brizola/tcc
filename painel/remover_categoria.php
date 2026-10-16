@@ -12,10 +12,8 @@ function retornar($mensagem, $tipo = 'erro')
 }
 
 // A exclusão só pode ser solicitada pelo formulário.
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: categorias.php');
-    exit;
-}
+
+validarCsrf();
 
 $idCategoria = filter_var(
     $_POST['id_categoria'] ?? null,

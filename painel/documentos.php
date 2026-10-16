@@ -145,6 +145,11 @@ include "includes/sidebar.php";
                                                 class="d-inline"
                                                 onsubmit="return confirm('Deseja excluir este documento do portal?');"
                                             >
+                                                <input
+                                                    type="hidden"
+                                                    name="csrf_token"
+                                                    value="<?= htmlspecialchars(csrfToken(), ENT_QUOTES, 'UTF-8') ?>"
+                                                >
                                                 <input type="hidden" name="id_documento" value="<?= (int) $documento['id_documento'] ?>">
                                                 <button type="submit" class="btn btn-sm btn-outline-danger" title="Excluir documento">
                                                     <i class="bi bi-trash"></i>

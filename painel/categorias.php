@@ -38,6 +38,11 @@ include "includes/sidebar.php";
                 <h5 class="card-title mb-3">Nova categoria</h5>
 
                 <form action="salvar_categoria.php" method="POST" enctype="multipart/form-data">
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        value="<?= htmlspecialchars(csrfToken(), ENT_QUOTES, 'UTF-8') ?>"
+                    >
                     <div class="mb-3">
                         <label for="nome_categoria" class="form-label">
                             Nome da categoria
@@ -132,7 +137,12 @@ include "includes/sidebar.php";
                                                 class="d-inline"
                                                 onsubmit="return confirm('Deseja realmente excluir esta categoria?');"
                                             >
-
+                                                <input
+                                                    type="hidden"
+                                                    name="csrf_token"
+                                                    value="<?= htmlspecialchars(csrfToken(), ENT_QUOTES, 'UTF-8') ?>"
+                                                >
+                                                
                                                 <input
                                                     type="hidden"
                                                     name="id_categoria"

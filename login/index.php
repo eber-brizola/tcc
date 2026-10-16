@@ -1,3 +1,12 @@
+
+<?php
+session_start();
+
+$erroLogin = !empty($_SESSION['nao_autenticado']);
+unset($_SESSION['nao_autenticado']);
+?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -27,7 +36,13 @@
 					<div class="icon d-flex align-items-center justify-content-center">
 						<span class="fa fa-user-o"></span>
 					</div>
-					<h3 class="text-center mb-4">Entrar no painel de administração</h3>
+					
+						<?php if ($erroLogin): ?>
+							<div class="alert alert-danger" role="alert">
+								Não foi possível entrar. Verifique seu e-mail e sua senha e tente novamente.
+							</div>
+						<?php endif; ?>
+
 						<div class="form-group">
 							<input type="email" class="form-control rounded-left" placeholder="Email de usuário" name="email_operador" id="email_operador" required>
 						</div>

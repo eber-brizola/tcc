@@ -11,11 +11,7 @@ function retornarDocumentos($mensagem, $tipo = 'erro')
     exit;
 }
 
-// Não exclui documentos ao abrir um link diretamente.
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: documentos.php');
-    exit;
-}
+validarCsrf();
 
 $idDocumento = filter_var(
     $_POST['id_documento'] ?? null,
