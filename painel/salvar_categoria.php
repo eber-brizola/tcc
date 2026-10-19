@@ -13,10 +13,7 @@ function retornarCategoria($mensagem, $tipo = 'erro')
     exit;
 }
 
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: categorias.php');
-    exit;
-}
+validarCsrf();
 
 $nomeCategoria = is_string($_POST['nome_categoria'] ?? null)
     ? trim($_POST['nome_categoria'])
