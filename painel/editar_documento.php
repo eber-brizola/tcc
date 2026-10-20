@@ -68,6 +68,11 @@ include "includes/sidebar.php";
             <div class="card-body p-4">
 
                 <form action="atualizar_documento.php" method="POST" enctype="multipart/form-data">
+                    <input
+                        type="hidden"
+                        name="csrf_token"
+                        value="<?= htmlspecialchars(csrfToken(), ENT_QUOTES, 'UTF-8') ?>"
+                    >
 
                     <input
                         type="hidden"

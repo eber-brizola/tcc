@@ -1,6 +1,7 @@
-
 <?php
 session_start();
+
+require_once __DIR__ . '/../painel/includes/csrf.php';
 
 $erroLogin = !empty($_SESSION['nao_autenticado']);
 unset($_SESSION['nao_autenticado']);
@@ -30,6 +31,11 @@ unset($_SESSION['nao_autenticado']);
 				</div>
 			</div>
 			<form action="../autentica.php" method="POST">
+				<input
+					type="hidden"
+					name="csrf_token"
+					value="<?= htmlspecialchars(csrfToken(), ENT_QUOTES, 'UTF-8') ?>"
+				>
 				<div class="row justify-content-center">
 					<div class="col-md-7 col-lg-5">
 						<div class="login-wrap p-4 p-md-5">

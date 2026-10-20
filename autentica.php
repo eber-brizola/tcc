@@ -2,13 +2,18 @@
 
 session_start();
 
-require_once __DIR__ . '/painel/conexao.php';
+require_once __DIR__ . '/painel/includes/csrf.php';
 
-// Só aceita acesso através do formulário de login
+// Só aceita acesso através do formulário de login.
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: login/');
     exit;
 }
+
+// Valida antes de consultar o banco ou conferir a senha.
+validarCsrf();
+
+require_once __DIR__ . '/painel/conexao.php';
 
 // Recebe e limpa os dados
 $email = is_string($_POST['email_operador'] ?? null)
@@ -82,8 +87,9 @@ if (!password_verify($senha, $operador['senha_operador'])) {
     exit;
 }
 
-// Login correto
+// Login correto: renova a sessão e descarta o token anterior.
 session_regenerate_id(true);
+unset($_SESSION['csrf_token']);
 
 $_SESSION['usuario_id'] = (int) $operador['id_operador'];
 $_SESSION['usuario_nome'] = $operador['nome_operador'];

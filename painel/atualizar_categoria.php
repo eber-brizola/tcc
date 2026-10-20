@@ -1,6 +1,9 @@
 <?php
 require_once __DIR__ . '/includes/verifica_login.php';
-require_once __DIR__ . "/conexao.php";
+
+validarCsrf();
+
+require_once __DIR__ . '/conexao.php';
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
