@@ -3,9 +3,9 @@
 header('Content-Type: text/html; charset=utf-8');
 
 define('HOST', 'localhost');
-define('USUARIO', 'root');
-define('SENHA', '');
-define('DB', 'docs_ceedo');
+define('USUARIO', 'u948351601_acervotech');
+define('SENHA', 'CEEDOu948351601');
+define('DB', 'u948351601_acervotech');
 
 $conexao = mysqli_connect(
     HOST,
