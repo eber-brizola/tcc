@@ -1,7 +1,6 @@
 
 <?php
-session_start();
-
+require_once __DIR__ . '/includes/sessao.php';
 // A saída só pode ser solicitada por POST.
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: index.php');

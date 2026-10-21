@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once __DIR__ . '/../painel/includes/sessao.php';
 
 require_once __DIR__ . '/../painel/includes/csrf.php';
 
