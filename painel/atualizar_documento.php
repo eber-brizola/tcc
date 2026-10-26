@@ -50,6 +50,7 @@ if (!$idDocumento || !$categoria || $nome === "") {
 $arquivo = $_FILES["arquivo"] ?? null;
 $substituirArquivo = false;
 
+
 if ($arquivo !== null) {
     if (
         !is_array($arquivo) ||
@@ -71,6 +72,7 @@ $caminhoNovoCompleto = null;
 $arquivoNovoMovido = false;
 $transacaoAberta = false;
 $caminhoAntigo = null;
+$confirmacaoIniciada = false;
 
 try {
     // Valida o arquivo novo antes de alterar o banco.
@@ -210,7 +212,10 @@ try {
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
-    // Confirma a atualização no banco.
+    // A partir daqui, uma falha de conexão pode deixar
+    // incerto se o banco confirmou a atualização.
+    $confirmacaoIniciada = true;
+
     mysqli_commit($conexao);
     $transacaoAberta = false;
 
@@ -223,16 +228,29 @@ try {
         }
     }
 
-    // Remove o novo upload se a atualização falhar.
-    if ($arquivoNovoMovido && $caminhoNovoCompleto !== null) {
+    // Só remove o arquivo novo se a falha ocorreu
+    // antes de tentar confirmar a transação.
+    if (
+        !$confirmacaoIniciada
+        && $arquivoNovoMovido
+        && $caminhoNovoCompleto !== null
+    ) {
         if (!unlink($caminhoNovoCompleto)) {
             error_log(
-                "Falha ao remover upload novo: " . $caminhoNovoCompleto
+                "Falha ao remover upload novo: "
+                . $caminhoNovoCompleto
             );
         }
     }
 
     error_log($erro->getMessage());
+
+    if ($confirmacaoIniciada) {
+        retornar(
+            "Não foi possível confirmar o resultado da atualização. "
+            . "Confira o documento na listagem antes de tentar novamente."
+        );
+    }
 
     retornar("Não foi possível atualizar o documento.");
 }
@@ -255,7 +273,7 @@ if ($substituirArquivo && $caminhoAntigo !== $caminho) {
         mysqli_stmt_fetch($stmt);
         mysqli_stmt_close($stmt);
 
-        if ($referencias === 0) {
+        if ((int) $referencias === 0) {
             $pastaReal = realpath($pasta);
             $arquivoAntigoReal = realpath(
                 __DIR__ . "/" . $caminhoAntigo
