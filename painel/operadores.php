@@ -409,16 +409,33 @@ unset(
                                 </td>
 
                                 <td>
-                                    <?php if (!$ehRoot && $ativo): ?>
-                                        <a
-                                            href="confirmar_promocao.php?id=<?= (int) $operador['id_operador'] ?>"
-                                            class="btn btn-sm btn-outline-primary text-nowrap"
-                                        >
-                                            <i class="bi bi-shield-plus me-1" aria-hidden="true"></i>
-                                            Promover a root
-                                        </a>
+                                    <?php if (!$ehRoot && !$souEu): ?>
+                                        <div class="d-flex flex-wrap gap-2">
+                                            <?php if ($ativo): ?>
+                                                <a
+                                                    href="confirmar_promocao.php?id=<?= (int) $operador['id_operador'] ?>"
+                                                    class="btn btn-sm btn-outline-primary text-nowrap"
+                                                >
+                                                    Promover a root
+                                                </a>
+                                            <?php endif; ?>
+
+                                            <a
+                                                href="confirmar_acao_operador.php?id=<?= (int) $operador['id_operador'] ?>&acao=<?= $ativo ? 'desativar' : 'reativar' ?>"
+                                                class="btn btn-sm btn-outline-secondary"
+                                            >
+                                                <?= $ativo ? 'Desativar' : 'Reativar' ?>
+                                            </a>
+
+                                            <a
+                                                href="confirmar_acao_operador.php?id=<?= (int) $operador['id_operador'] ?>&acao=excluir"
+                                                class="btn btn-sm btn-outline-danger"
+                                            >
+                                                Excluir
+                                            </a>
+                                        </div>
                                     <?php else: ?>
-                                        <span class="text-muted">—</span>
+                                        <span class="text-muted small">Conta root protegida</span>
                                     <?php endif; ?>
                                 </td>
                             </tr>
