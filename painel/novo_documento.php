@@ -77,6 +77,7 @@ include "includes/sidebar.php";
                                     name="nome"
                                     id="nome"
                                     placeholder="Ex.: Ata da reunião pedagógica"
+                                    maxlength="255" 
                                     required
                                 >
 

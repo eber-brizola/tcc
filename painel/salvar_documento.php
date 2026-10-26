@@ -26,6 +26,10 @@ $nome = is_string($_POST["nome"] ?? null)
     ? trim($_POST["nome"])
     : "";
 
+if (mb_strlen($nome, 'UTF-8') > 255) {
+    retornar('O nome do documento deve ter até 255 caracteres.');
+}
+
 $categoria = filter_var(
     $_POST["categoria"] ?? null,
     FILTER_VALIDATE_INT,

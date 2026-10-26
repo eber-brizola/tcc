@@ -81,7 +81,7 @@ include "includes/sidebar.php";
                     >
 
                     <div class="mb-3">
-                        <label for="nome" class="form-label">
+                        <label for="nome" class="form-label" maxlength="255">
                             Nome do documento
                         </label>
 
