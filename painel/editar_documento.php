@@ -81,7 +81,7 @@ include "includes/sidebar.php";
                     >
 
                     <div class="mb-3">
-                        <label for="nome" class="form-label" maxlength="255">
+                        <label for="nome" class="form-label">
                             Nome do documento
                         </label>
 
@@ -90,9 +90,10 @@ include "includes/sidebar.php";
                             name="nome"
                             id="nome"
                             class="form-control"
+                            maxlength="255"
                             value="<?= htmlspecialchars(
                                 $documento['nome'],
-                                ENT_QUOTES,
+                                ENT_QUOTES | ENT_SUBSTITUTE,
                                 'UTF-8'
                             ) ?>"
                             required

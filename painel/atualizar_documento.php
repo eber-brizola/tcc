@@ -40,6 +40,13 @@ $nome = is_string($_POST["nome"] ?? null)
     ? trim($_POST["nome"])
     : "";
 
+if (
+    !mb_check_encoding($nome, 'UTF-8')
+    || mb_strlen($nome, 'UTF-8') > 255
+) {
+    retornar('O nome do documento deve ser válido e ter até 255 caracteres.');
+}
+
 if (!$idDocumento || !$categoria || $nome === "") {
     retornar(
         "Dados inválidos. Confira os campos e o limite de upload do servidor."
