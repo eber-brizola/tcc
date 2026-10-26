@@ -2,8 +2,14 @@
 require_once __DIR__ . '/includes/verifica_login.php';
 require_once "conexao.php";
 
-$mensagem = $_GET["mensagem"] ?? "";
-$tipo = $_GET["tipo"] ?? "";
+$mensagem = is_string($_GET['mensagem'] ?? null)
+    ? $_GET['mensagem']
+    : '';
+
+$tipo = (
+    is_string($_GET['tipo'] ?? null)
+    && $_GET['tipo'] === 'sucesso'
+) ? 'sucesso' : 'erro';
 
 $sqlCategorias = "SELECT id_categoria,
                          nome_categoria,
@@ -27,7 +33,7 @@ include "includes/sidebar.php";
 
         <?php if ($mensagem): ?>
             <div class="alert alert-<?= $tipo === "erro" ? "danger" : "success" ?>">
-                <?= htmlspecialchars($mensagem) ?>
+                <?= htmlspecialchars($mensagem, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>
             </div>
         <?php endif; ?>
 
