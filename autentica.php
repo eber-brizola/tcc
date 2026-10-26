@@ -42,6 +42,16 @@ try {
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
     require_once __DIR__ . '/painel/conexao.php';
+    
+    // Limpa registros de tentativas com mais de 24 horas.
+    // Executa ocasionalmente para evitar consultas desnecessárias.
+    if (random_int(1, 100) === 1) {
+        mysqli_query(
+            $conexao,
+            'DELETE FROM login_tentativas
+            WHERE inicio_janela < NOW() - INTERVAL 1 DAY'
+        );
+    }
 
     // Registra a tentativa antes de conferir a senha.
     // Depois de 15 minutos, começa uma nova janela.
