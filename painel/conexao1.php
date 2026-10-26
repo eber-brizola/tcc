@@ -1,5 +1,10 @@
 <?php
+// Registra os erros no servidor sem mostrá-los ao visitante.
+ini_set('display_errors', '0');
+ini_set('display_startup_errors', '0');
+ini_set('log_errors', '1');
 
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 header('Content-Type: text/html; charset=utf-8');
 
 define('HOST', 'localhost');
