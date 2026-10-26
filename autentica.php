@@ -36,7 +36,6 @@ if (
 }
 
 // Identifica as tentativas para esse e-mail.
-// Não altera o e-mail usado na consulta do operador.
 $chave = hash('sha256', strtolower($email));
 
 try {
@@ -104,7 +103,8 @@ try {
             email_operador,
             senha_operador,
             nivel,
-            ativo
+            ativo,
+            versao_sessao
          FROM operadores
          WHERE email_operador = ?
          LIMIT 1'
@@ -118,8 +118,7 @@ try {
 
     mysqli_stmt_close($stmt);
 
-    // Um hash de referência mantém a verificação de senha
-    // mesmo quando o e-mail não existe.
+    // Mantém a verificação de senha mesmo quando o e-mail não existe.
     $hashReferencia =
         '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.';
 
@@ -167,6 +166,7 @@ $_SESSION['usuario_id'] = (int) $operador['id_operador'];
 $_SESSION['usuario_nome'] = $operador['nome_operador'];
 $_SESSION['usuario_email'] = $operador['email_operador'];
 $_SESSION['usuario_nivel'] = $operador['nivel'];
+$_SESSION['versao_sessao'] = (int) $operador['versao_sessao'];
 $_SESSION['ultima_atividade'] = time();
 
 header('Location: painel/', true, 303);

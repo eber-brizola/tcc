@@ -126,8 +126,9 @@ try {
     $stmt = mysqli_prepare(
         $conexao,
         "UPDATE operadores
-         SET nivel = 'root'
-         WHERE id_operador = ? AND nivel = 'adm' AND ativo = 1"
+        SET nivel = 'root',
+            versao_sessao = versao_sessao + 1
+        WHERE id_operador = ? AND nivel = 'adm' AND ativo = 1"
     );
 
     mysqli_stmt_bind_param($stmt, 'i', $idDestino);
