@@ -1,201 +1,224 @@
 <?php
+
 require_once __DIR__ . '/includes/verifica_login.php';
 
 validarCsrf();
 
 require_once __DIR__ . '/conexao.php';
-// Redireciona para a listagem com uma mensagem.
-function retornar($mensagem, $tipo = "erro")
+
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+
+function retornar(string $mensagem, string $tipo = 'erro'): void
 {
-    header("Location: documentos.php?" . http_build_query([
-        "mensagem" => $mensagem,
-        "tipo" => $tipo
+    header('Location: documentos.php?' . http_build_query([
+        'mensagem' => $mensagem,
+        'tipo' => $tipo
     ]), true, 303);
 
     exit;
 }
 
-// Só aceita requisições POST.
-if ($_SERVER["REQUEST_METHOD"] !== "POST") {
-    header("Location: novo_documento.php");
-    exit;
-}
+// validarCsrf() já exige o método POST.
 
-// Recebe os campos do formulário.
-$nome = is_string($_POST["nome"] ?? null)
-    ? trim($_POST["nome"])
-    : "";
+$nome = is_string($_POST['nome'] ?? null)
+    ? trim($_POST['nome'])
+    : '';
 
-if (mb_strlen($nome, 'UTF-8') > 255) {
-    retornar('O nome do documento deve ter até 255 caracteres.');
-}
-
-$categoria = filter_var(
-    $_POST["categoria"] ?? null,
-    FILTER_VALIDATE_INT,
-    ["options" => ["min_range" => 1]]
-);
-
-if ($nome === "" || !$categoria) {
+if (
+    !mb_check_encoding($nome, 'UTF-8')
+    || mb_strlen($nome, 'UTF-8') > 255
+) {
     retornar(
-        "Informe o nome e uma categoria válida. "
-        . "Se o envio for grande, confira o limite do servidor."
+        'O nome do documento deve ser válido e ter até 255 caracteres.'
     );
 }
 
+$categoria = filter_var(
+    $_POST['categoria'] ?? null,
+    FILTER_VALIDATE_INT,
+    ['options' => ['min_range' => 1]]
+);
+
+if ($nome === '' || !$categoria) {
+    retornar('Informe o nome e uma categoria válida.');
+}
+
 // Verifica o upload recebido.
-$arquivo = $_FILES["arquivo"] ?? null;
+$arquivo = $_FILES['arquivo'] ?? null;
 
 if (
-    !is_array($arquivo) ||
-    !isset($arquivo["error"]) ||
-    !is_int($arquivo["error"])
+    !is_array($arquivo)
+    || !isset($arquivo['error'])
+    || !is_int($arquivo['error'])
 ) {
-    retornar("Selecione um arquivo válido.");
+    retornar('Selecione um arquivo válido.');
 }
 
-if ($arquivo["error"] !== UPLOAD_ERR_OK) {
-    retornar("O envio falhou. Verifique o arquivo e o limite do servidor.");
+if ($arquivo['error'] !== UPLOAD_ERR_OK) {
+    retornar(
+        'O envio falhou. Verifique o arquivo e o limite do servidor.'
+    );
 }
 
 if (
-    !is_string($arquivo["tmp_name"] ?? null) ||
-    !is_uploaded_file($arquivo["tmp_name"])
+    !is_string($arquivo['tmp_name'] ?? null)
+    || !is_uploaded_file($arquivo['tmp_name'])
 ) {
-    retornar("O arquivo enviado é inválido.");
+    retornar('O arquivo enviado é inválido.');
 }
 
-// Controlam a limpeza caso o cadastro falhe.
 $caminhoCompleto = null;
 $arquivoMovido = false;
+$insercaoIniciada = false;
 $cadastrado = false;
 
 try {
     // Limite de 10 MB.
     $tamanhoMaximo = 10 * 1024 * 1024;
-    $tamanho = filesize($arquivo["tmp_name"]);
+    $tamanho = filesize($arquivo['tmp_name']);
 
     if (
-        $tamanho === false ||
-        $tamanho === 0 ||
-        $tamanho > $tamanhoMaximo
+        $tamanho === false
+        || $tamanho === 0
+        || $tamanho > $tamanhoMaximo
     ) {
-        retornar("O arquivo deve ter conteúdo e no máximo 10 MB.");
+        retornar('O arquivo deve ter conteúdo e no máximo 10 MB.');
     }
 
     // Identifica o formato pelo conteúdo.
     $finfo = new finfo(FILEINFO_MIME_TYPE);
-    $tipoArquivo = $finfo->file($arquivo["tmp_name"]);
+    $tipoArquivo = $finfo->file($arquivo['tmp_name']);
 
     $tiposPermitidos = [
-        "application/pdf" => "pdf",
-        "image/jpeg" => "jpg",
-        "image/png" => "png"
+        'application/pdf' => 'pdf',
+        'image/jpeg' => 'jpg',
+        'image/png' => 'png'
     ];
 
-    if (!isset($tiposPermitidos[$tipoArquivo])) {
-        retornar("Formato não permitido. Envie PDF, JPG ou PNG.");
+    if (
+        !is_string($tipoArquivo)
+        || !isset($tiposPermitidos[$tipoArquivo])
+    ) {
+        retornar('Formato não permitido. Envie PDF, JPG ou PNG.');
     }
 
-    // Confirma que a categoria existe no banco.
+    // Confirma que a categoria existe.
     $stmt = mysqli_prepare(
         $conexao,
-        "SELECT id_categoria
+        'SELECT id_categoria
          FROM categorias
-         WHERE id_categoria = ?"
+         WHERE id_categoria = ?'
     );
 
-    if (!$stmt) {
-        throw new RuntimeException("Falha ao preparar consulta.");
-    }
-
-    mysqli_stmt_bind_param($stmt, "i", $categoria);
-
-    if (
-        !mysqli_stmt_execute($stmt) ||
-        !mysqli_stmt_store_result($stmt)
-    ) {
-        throw new RuntimeException("Falha ao consultar categoria.");
-    }
+    mysqli_stmt_bind_param($stmt, 'i', $categoria);
+    mysqli_stmt_execute($stmt);
+    mysqli_stmt_store_result($stmt);
 
     $categoriaExiste = mysqli_stmt_num_rows($stmt) > 0;
 
     mysqli_stmt_close($stmt);
 
     if (!$categoriaExiste) {
-        retornar("A categoria selecionada não existe.");
+        retornar('A categoria selecionada não existe.');
     }
 
     // Cria a pasta de uploads se necessário.
-    $pasta = __DIR__ . "/uploads/";
+    $pasta = __DIR__ . '/uploads/';
 
     if (
-        !is_dir($pasta) &&
-        !mkdir($pasta, 0755, true) &&
         !is_dir($pasta)
+        && !mkdir($pasta, 0755, true)
+        && !is_dir($pasta)
     ) {
         throw new RuntimeException(
-            "Não foi possível criar a pasta de uploads."
+            'Não foi possível criar a pasta de uploads.'
         );
     }
 
-    // Gera um nome aleatório para não reutilizar o nome original.
+    // Gera um nome aleatório para o arquivo.
     $extensao = $tiposPermitidos[$tipoArquivo];
 
     do {
-        $nomeArquivo = bin2hex(random_bytes(16)) . "." . $extensao;
+        $nomeArquivo = bin2hex(random_bytes(16)) . '.' . $extensao;
         $caminhoCompleto = $pasta . $nomeArquivo;
     } while (file_exists($caminhoCompleto));
 
-    $caminho = "uploads/" . $nomeArquivo;
+    $caminho = 'uploads/' . $nomeArquivo;
 
-    // Move o arquivo temporário para a pasta definitiva.
-    if (!move_uploaded_file($arquivo["tmp_name"], $caminhoCompleto)) {
-        throw new RuntimeException("Não foi possível mover o arquivo.");
+    if (!move_uploaded_file(
+        $arquivo['tmp_name'],
+        $caminhoCompleto
+    )) {
+        throw new RuntimeException(
+            'Não foi possível guardar o arquivo.'
+        );
     }
 
     $arquivoMovido = true;
 
-    // Cadastra usando parâmetros.
     $stmt = mysqli_prepare(
         $conexao,
-        "INSERT INTO documentos (nome, id_categoria, caminho)
-         VALUES (?, ?, ?)"
+        'INSERT INTO documentos (nome, id_categoria, caminho)
+         VALUES (?, ?, ?)'
     );
-
-    if (!$stmt) {
-        throw new RuntimeException("Falha ao preparar cadastro.");
-    }
 
     mysqli_stmt_bind_param(
         $stmt,
-        "sis",
+        'sis',
         $nome,
         $categoria,
         $caminho
     );
 
-    if (!mysqli_stmt_execute($stmt)) {
-        throw new RuntimeException("Falha ao cadastrar documento.");
-    }
+    // Marcar ANTES de executar:
+    // uma falha de conexão pode ocorrer depois de o banco salvar.
+    $insercaoIniciada = true;
 
+    mysqli_stmt_execute($stmt);
     $cadastrado = true;
 
     mysqli_stmt_close($stmt);
 
 } catch (Throwable $erro) {
-    // Se o cadastro falhou, tenta remover o arquivo recém-enviado.
-    if ($arquivoMovido && !$cadastrado && $caminhoCompleto !== null) {
+    error_log($erro->getMessage());
+
+    // Só apaga automaticamente se o INSERT ainda não foi iniciado.
+    if (
+        !$insercaoIniciada
+        && $arquivoMovido
+        && $caminhoCompleto !== null
+    ) {
         if (!unlink($caminhoCompleto)) {
             error_log(
-                "Não foi possível remover upload: " . $caminhoCompleto
+                'Não foi possível remover upload: '
+                . $caminhoCompleto
             );
         }
     }
 
-    error_log($erro->getMessage());
+    // O INSERT foi confirmado, mas houve uma falha posterior.
+    if ($cadastrado) {
+        retornar(
+            'Documento cadastrado. Houve uma falha ao finalizar '
+            . 'a operação; confira a listagem.',
+            'sucesso'
+        );
+    }
 
-    retornar("Não foi possível cadastrar o documento. Tente novamente.");
+    if ($insercaoIniciada) {
+        error_log(
+            'Cadastro sem confirmação. Arquivo preservado '
+            . 'para conferência: ' . $caminhoCompleto
+        );
+
+        retornar(
+            'Não foi possível confirmar o cadastro. '
+            . 'Confira a listagem antes de enviar novamente. '
+            . 'O arquivo foi preservado para conferência.'
+        );
+    }
+
+    retornar('Não foi possível cadastrar o documento. Tente novamente.');
 }
 
-retornar("Documento cadastrado com sucesso!", "sucesso");
+retornar('Documento cadastrado com sucesso!', 'sucesso');
