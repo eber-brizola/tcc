@@ -90,14 +90,10 @@ try {
     }
 
     if ((int) $controle['tentativas'] > 5) {
-        http_response_code(429);
-        header('Content-Type: text/plain; charset=UTF-8');
-        header('Cache-Control: no-store');
+        $_SESSION['login_bloqueado'] = true;
 
-        exit(
-            'Não foi possível entrar. '
-            . 'Aguarde 15 minutos antes de tentar novamente.'
-        );
+        header('Location: login/', true, 303);
+        exit;
     }
 
     $stmt = mysqli_prepare(

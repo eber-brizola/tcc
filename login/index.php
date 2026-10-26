@@ -4,7 +4,12 @@ require_once __DIR__ . '/../painel/includes/sessao.php';
 require_once __DIR__ . '/../painel/includes/csrf.php';
 
 $erroLogin = !empty($_SESSION['nao_autenticado']);
-unset($_SESSION['nao_autenticado']);
+$loginBloqueado = !empty($_SESSION['login_bloqueado']);
+
+unset(
+    $_SESSION['nao_autenticado'],
+    $_SESSION['login_bloqueado']
+);
 ?>
 
 
@@ -43,9 +48,15 @@ unset($_SESSION['nao_autenticado']);
 						<span class="fa fa-user-o"></span>
 					</div>
 					
-						<?php if ($erroLogin): ?>
+						<?php if ($loginBloqueado): ?>
+							<div class="alert alert-warning" role="alert">
+								Muitas tentativas de acesso.
+								Aguarde 15 minutos antes de tentar novamente.
+							</div>
+						<?php elseif ($erroLogin): ?>
 							<div class="alert alert-danger" role="alert">
-								Não foi possível entrar. Verifique seu e-mail e sua senha e tente novamente.
+								Não foi possível entrar.
+								Verifique seu e-mail e sua senha e tente novamente.
 							</div>
 						<?php endif; ?>
 
