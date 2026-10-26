@@ -1,12 +1,20 @@
 <?php
 require_once "painel/conexao.php";
 
-if (!isset($_GET["id"]) || !filter_var($_GET["id"], FILTER_VALIDATE_INT)) {
-    header("Location: index.php");
+$idRecebido = $_GET['id'] ?? null;
+
+$idCategoria = is_string($idRecebido)
+    ? filter_var(
+        $idRecebido,
+        FILTER_VALIDATE_INT,
+        ['options' => ['min_range' => 1]]
+    )
+    : false;
+
+if ($idCategoria === false) {
+    header('Location: index.php', true, 303);
     exit;
 }
-
-$idCategoria = (int) $_GET["id"];
 
 /* Busca a categoria */
 $sqlCategoria = "SELECT id_categoria, nome_categoria

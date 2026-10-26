@@ -55,6 +55,13 @@ if (empty($_SESSION['csrf_token'])) {
         <i class="bi bi-tags"></i>
         Categorias
     </a>
+    
+    <?php if (($_SESSION['usuario_nivel'] ?? null) === 'root'): ?>
+        <a href="operadores.php">
+            <i class="bi bi-people" aria-hidden="true"></i>
+            Operadores
+        </a>
+    <?php endif; ?>
 
     <div class="sidebar-rodape">
 
