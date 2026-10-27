@@ -8,9 +8,9 @@ ini_set('log_errors', '1');
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 define('HOST', 'localhost');
-define('USUARIO', 'root');
-define('SENHA', '');
-define('DB', 'docs_ceedo');
+define('USUARIO', 'u948351601_acervotech');
+define('SENHA', 'CEEDOu948351601');
+define('DB', 'u948351601_acervotech');
 
 try {
     $conexao = mysqli_connect(
