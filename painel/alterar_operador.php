@@ -5,6 +5,7 @@ require_once __DIR__ . '/includes/verifica_root.php';
 validarCsrf();
 
 require_once __DIR__ . '/conexao.php';
+require_once __DIR__ . '/includes/limite_root.php';
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
@@ -47,37 +48,24 @@ if (
     retornarAcaoOperador('Solicitação inválida. Confira os dados.');
 }
 
-// Compartilha o limite de confirmações com as outras ações de root.
-$agora = time();
-$controle = $_SESSION['confirmacoes_root'] ?? null;
-
-if (
-    !is_array($controle)
-    || ($agora - ($controle['inicio'] ?? 0)) >= 900
-) {
-    $controle = ['inicio' => $agora, 'tentativas' => 0];
-}
-
-if ($controle['tentativas'] >= 5) {
-    retornarAcaoOperador(
-        'Limite de confirmações atingido. Aguarde 15 minutos.'
-    );
-}
-
-$controle['tentativas']++;
-$_SESSION['confirmacoes_root'] = $controle;
-
 $transacaoAberta = false;
 $confirmacaoIniciada = false;
 
 try {
+    // A tentativa é persistida antes da transação administrativa.
+    if (!reservarConfirmacaoRoot($conexao, $idAutor)) {
+        retornarAcaoOperador(
+            'Limite de 5 confirmações atingido. '
+            . 'Aguarde o fim da janela de 15 minutos.'
+        );
+    }
+
     mysqli_begin_transaction($conexao);
     $transacaoAberta = true;
 
-    // Confere autor e destinatário com os registros bloqueados.
     $stmt = mysqli_prepare(
         $conexao,
-        'SELECT id_operador, senha_operador, nivel, ativo
+        'SELECT id_operador, senha_operador, nivel, ativo, versao_sessao
          FROM operadores
          WHERE id_operador IN (?, ?)
          ORDER BY id_operador
@@ -103,6 +91,8 @@ try {
         !$autor
         || (int) $autor['ativo'] !== 1
         || $autor['nivel'] !== 'root'
+        || ($_SESSION['versao_sessao'] ?? null)
+            !== (int) $autor['versao_sessao']
         || !password_verify($senha, $autor['senha_operador'])
     ) {
         mysqli_rollback($conexao);
@@ -149,9 +139,9 @@ try {
         $stmt = mysqli_prepare(
             $conexao,
             "UPDATE operadores
-            SET ativo = ?,
-                    versao_sessao = versao_sessao + 1
-            WHERE id_operador = ? AND nivel = 'adm'"
+             SET ativo = ?,
+                 versao_sessao = versao_sessao + 1
+             WHERE id_operador = ? AND nivel = 'adm'"
         );
 
         mysqli_stmt_bind_param($stmt, 'ii', $ativo, $idDestino);
@@ -182,14 +172,13 @@ try {
 
     if ($confirmacaoIniciada) {
         retornarAcaoOperador(
-            'Não foi possível confirmar o resultado. Confira a listagem antes de repetir.'
+            'Não foi possível confirmar o resultado. '
+            . 'Confira a listagem antes de repetir.'
         );
     }
 
     retornarAcaoOperador('Não foi possível concluir a operação.');
 }
-
-unset($_SESSION['confirmacoes_root']);
 
 $mensagens = [
     'desativar' => 'Administrador desativado.',
@@ -197,4 +186,4 @@ $mensagens = [
     'excluir' => 'Administrador excluído definitivamente.'
 ];
 
-retornarAcaoOperador($mensagens[$acao], true); 
+retornarAcaoOperador($mensagens[$acao], true);

@@ -5,6 +5,7 @@ require_once __DIR__ . '/includes/verifica_root.php';
 validarCsrf();
 
 require_once __DIR__ . '/conexao.php';
+require_once __DIR__ . '/includes/limite_root.php';
 
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
@@ -19,11 +20,13 @@ function voltarOperadores(
     exit;
 }
 
-$idDestino = filter_var(
-    $_POST['id_operador'] ?? null,
-    FILTER_VALIDATE_INT,
-    ['options' => ['min_range' => 1]]
-);
+$idDestino = is_string($_POST['id_operador'] ?? null)
+    ? filter_var(
+        $_POST['id_operador'],
+        FILTER_VALIDATE_INT,
+        ['options' => ['min_range' => 1]]
+    )
+    : false;
 
 $idAutor = (int) $_SESSION['usuario_id'];
 
@@ -40,39 +43,24 @@ if (
     voltarOperadores('Informe um operador válido e sua senha atual.');
 }
 
-// Limita confirmações de senha nesta sessão.
-// Essa proteção complementa o limite existente no login.
-$agora = time();
-$controle = $_SESSION['confirmacoes_root'] ?? null;
-
-if (
-    !is_array($controle)
-    || ($agora - ($controle['inicio'] ?? 0)) >= 900
-) {
-    $controle = ['inicio' => $agora, 'tentativas' => 0];
-}
-
-if ($controle['tentativas'] >= 5) {
-    voltarOperadores(
-        'Limite de confirmações atingido. Aguarde 15 minutos.'
-    );
-}
-
-$controle['tentativas']++;
-$_SESSION['confirmacoes_root'] = $controle;
-
 $transacaoAberta = false;
 $confirmacaoIniciada = false;
 
 try {
+    // Usa o mesmo contador de desativação, reativação e exclusão.
+    if (!reservarConfirmacaoRoot($conexao, $idAutor)) {
+        voltarOperadores(
+            'Limite de 5 confirmações atingido. '
+            . 'Aguarde o fim da janela de 15 minutos.'
+        );
+    }
+
     mysqli_begin_transaction($conexao);
     $transacaoAberta = true;
 
-    // Bloqueia as duas contas em ordem de ID.
-    // A autorização é conferida novamente dentro da transação.
     $stmt = mysqli_prepare(
         $conexao,
-        'SELECT id_operador, senha_operador, nivel, ativo
+        'SELECT id_operador, senha_operador, nivel, ativo, versao_sessao
          FROM operadores
          WHERE id_operador IN (?, ?)
          ORDER BY id_operador
@@ -98,6 +86,8 @@ try {
         $autor
         && (int) $autor['ativo'] === 1
         && $autor['nivel'] === 'root'
+        && ($_SESSION['versao_sessao'] ?? null)
+            === (int) $autor['versao_sessao']
         && password_verify($senha, $autor['senha_operador'])
     );
 
@@ -126,9 +116,9 @@ try {
     $stmt = mysqli_prepare(
         $conexao,
         "UPDATE operadores
-        SET nivel = 'root',
-            versao_sessao = versao_sessao + 1
-        WHERE id_operador = ? AND nivel = 'adm' AND ativo = 1"
+         SET nivel = 'root',
+             versao_sessao = versao_sessao + 1
+         WHERE id_operador = ? AND nivel = 'adm' AND ativo = 1"
     );
 
     mysqli_stmt_bind_param($stmt, 'i', $idDestino);
@@ -157,13 +147,12 @@ try {
 
     if ($confirmacaoIniciada) {
         voltarOperadores(
-            'Não foi possível confirmar o resultado. Confira o cargo na listagem.'
+            'Não foi possível confirmar o resultado. '
+            . 'Confira o cargo na listagem.'
         );
     }
 
     voltarOperadores('Não foi possível promover o operador.');
 }
-
-unset($_SESSION['confirmacoes_root']);
 
 voltarOperadores('Operador promovido a root com sucesso.', true);
