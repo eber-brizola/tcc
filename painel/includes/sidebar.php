@@ -1,17 +1,52 @@
 <?php
-$paginaAtual = basename($_SERVER["PHP_SELF"]);
+$paginaAtual = basename($_SERVER['SCRIPT_NAME']);
 
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+$itensMenu = [
+    [
+        'url' => 'index.php',
+        'titulo' => 'Dashboard',
+        'icone' => 'bi-grid-1x2',
+        'paginas' => ['index.php']
+    ],
+    [
+        'url' => 'novo_documento.php',
+        'titulo' => 'Adicionar documento',
+        'icone' => 'bi-cloud-arrow-up',
+        'paginas' => ['novo_documento.php']
+    ],
+    [
+        'url' => 'documentos.php',
+        'titulo' => 'Documentos',
+        'icone' => 'bi-files',
+        'paginas' => ['documentos.php', 'editar_documento.php']
+    ],
+    [
+        'url' => 'categorias.php',
+        'titulo' => 'Categorias',
+        'icone' => 'bi-tags',
+        'paginas' => ['categorias.php', 'editar_categoria.php']
+    ]
+];
+
+if (($_SESSION['usuario_nivel'] ?? null) === 'root') {
+    $itensMenu[] = [
+        'url' => 'operadores.php',
+        'titulo' => 'Operadores',
+        'icone' => 'bi-people',
+        'paginas' => [
+            'operadores.php',
+            'novo_operador.php',
+            'confirmar_promocao.php',
+            'confirmar_acao_operador.php'
+        ]
+    ];
 }
-
 ?>
 
 <aside class="sidebar">
-
     <div class="sidebar-logo">
         <div class="logo-icon">
-            <i class="bi bi-building"></i>
+            <i class="bi bi-building" aria-hidden="true"></i>
         </div>
 
         <div>
@@ -24,67 +59,51 @@ if (empty($_SESSION['csrf_token'])) {
 
     <p class="sidebar-titulo">MENU PRINCIPAL</p>
 
-    <a
-        href="index.php"
-        class="<?= $paginaAtual === "index.php" ? "active" : "" ?>"
-    >
-        <i class="bi bi-grid-1x2"></i>
-        Dashboard
-    </a>
+    <nav aria-label="Menu administrativo">
+        <?php foreach ($itensMenu as $item): ?>
+            <?php
+            $ativo = in_array($paginaAtual, $item['paginas'], true);
+            ?>
 
-    <a
-        href="novo_documento.php"
-        class="<?= $paginaAtual === "novo_documento.php" ? "active" : "" ?>"
-    >
-        <i class="bi bi-cloud-arrow-up"></i>
-        Adicionar documento
-    </a>
+            <a
+                href="<?= htmlspecialchars($item['url'], ENT_QUOTES, 'UTF-8') ?>"
+                class="menu-item <?= $ativo ? 'active' : '' ?>"
+                <?= $ativo ? 'aria-current="page"' : '' ?>
+            >
+                <i
+                    class="bi <?= htmlspecialchars($item['icone'], ENT_QUOTES, 'UTF-8') ?>"
+                    aria-hidden="true"
+                ></i>
 
-    <a
-        href="documentos.php"
-        class="<?= $paginaAtual === "documentos.php" ? "active" : "" ?>"
-    >
-        <i class="bi bi-files"></i>
-        Documentos
-    </a>
-
-    <a
-        href="categorias.php"
-        class="<?= $paginaAtual === "categorias.php" ? "active" : "" ?>"
-    >
-        <i class="bi bi-tags"></i>
-        Categorias
-    </a>
-    
-    <?php if (($_SESSION['usuario_nivel'] ?? null) === 'root'): ?>
-        <a href="operadores.php">
-            <i class="bi bi-people" aria-hidden="true"></i>
-            Operadores
-        </a>
-    <?php endif; ?>
+                <span>
+                    <?= htmlspecialchars($item['titulo'], ENT_QUOTES, 'UTF-8') ?>
+                </span>
+            </a>
+        <?php endforeach; ?>
+    </nav>
 
     <div class="sidebar-rodape">
-
-        <a href="../index.php" target="_blank">
-            <i class="bi bi-box-arrow-up-right"></i>
-            Ver portal público
+        <a
+            href="../index.php"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="menu-item"
+        >
+            <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
+            <span>Ver portal público</span>
         </a>
 
-        
-        <form action="logout.php" method="POST">
+        <form action="logout.php" method="POST" class="menu-form">
             <input
                 type="hidden"
                 name="csrf_token"
                 value="<?= htmlspecialchars(csrfToken(), ENT_QUOTES, 'UTF-8') ?>"
             >
 
-            <button type="submit" class="sair">
-                <i class="bi bi-box-arrow-left"></i>
-                Sair
+            <button type="submit" class="menu-item sair">
+                <i class="bi bi-box-arrow-left" aria-hidden="true"></i>
+                <span>Sair</span>
             </button>
         </form>
-
-
     </div>
-
 </aside>

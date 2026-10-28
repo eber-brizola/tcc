@@ -1,6 +1,6 @@
 <?php
-require_once "conexao.php";
 require_once __DIR__ . '/includes/verifica_login.php';
+require_once __DIR__ . '/conexao.php';
 
 $sqlTotalDocumentos = "SELECT COUNT(*) AS total FROM documentos";
 $totalDocumentos = mysqli_fetch_assoc(
@@ -41,7 +41,7 @@ include "includes/sidebar.php";
 
     <?php include "includes/navbar.php"; ?>
 
-    <main class="container-fluid p-4 p-lg-5">
+    <main class="container-fluid p-4 p-lg-5 dashboard-pagina">
 
         <section class="dashboard-top">
 
@@ -64,8 +64,13 @@ include "includes/sidebar.php";
 
             <div class="dashboard-top-acoes">
 
-                <a href="../index.php" target="_blank" class="btn btn-outline-primary">
-                    <i class="bi bi-box-arrow-up-right"></i>
+               <a
+                    href="../index.php"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="btn btn-outline-primary"
+                >
+                    <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
                     Ver portal
                 </a>
 
@@ -341,25 +346,3 @@ include "includes/sidebar.php";
     </main>
 
 </div>
-
-<script>
-    const arquivo = document.getElementById("arquivo");
-    const nomeArquivo = document.getElementById("nomeArquivo");
-
-    arquivo.addEventListener("change", function () {
-        if (arquivo.files.length > 0) {
-            nomeArquivo.textContent = arquivo.files[0].name;
-        }
-    });
-</script>
-
-<?php
-include "includes/footer.php";
-include "includes/scripts.php";
-?>
-
-<script>
-    setInterval(function () {
-        window.location.reload();
-    }, 30000);
-</script>

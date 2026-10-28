@@ -57,10 +57,10 @@ try {
 
     $stmt = mysqli_prepare(
         $conexao,
-        'SELECT nome_operador, email_operador, nivel, ativo
-         FROM operadores
-         WHERE id_operador = ?
-         LIMIT 1'
+        'SELECT nome_operador, email_operador, nivel, ativo, versao_sessao
+        FROM operadores
+        WHERE id_operador = ?
+        LIMIT 1'
     );
 
     mysqli_stmt_bind_param($stmt, 'i', $idOperador);
@@ -77,10 +77,14 @@ try {
     exit('Não foi possível verificar seu acesso. Tente novamente.');
 }
 
+$versaoSessao = $_SESSION['versao_sessao'] ?? null;
+
 if (
     !$operador
     || (int) $operador['ativo'] !== 1
     || !in_array($operador['nivel'], ['adm', 'root'], true)
+    || !is_int($versaoSessao)
+    || $versaoSessao !== (int) $operador['versao_sessao']
 ) {
     encerrarAcesso();
 }
