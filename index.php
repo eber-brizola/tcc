@@ -79,10 +79,9 @@ $ultimosDocumentos = mysqli_query($conexao, $sqlDocumentos);
         </p>
 
 
-        <a href="#documentos" class="btn btn-light btn-lg mt-3">
-
-            Ver Documentos
-
+        <a href="documentos.php" class="btn btn-light btn-lg mt-3">
+            <i class="bi bi-search" aria-hidden="true"></i>
+            Ver documentos
         </a>
 
 
