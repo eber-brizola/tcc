@@ -287,6 +287,7 @@ $temFiltros = (
         rel="stylesheet"
     >
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/rodape.css">
 </head>
 
 <body class="pagina-documentos">
@@ -577,11 +578,7 @@ $temFiltros = (
         </section>
     </main>
 
-    <footer class="bg-dark text-white text-center py-4">
-        <p class="mb-0">
-            © <?= date('Y') ?> CEEDO — Portal de Transparência Escolar
-        </p>
-    </footer>
+    <?php require __DIR__ . '/includes/footer.php'; ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

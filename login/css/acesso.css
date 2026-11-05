@@ -1,0 +1,62 @@
+* { box-sizing: border-box; }
+body.pagina-login { margin: 0; min-height: 100vh; display: flex; flex-direction: column; background: #f5f7fb; color: #18324d; font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+.pagina-login a { text-underline-offset: 4px; }
+.login-cabecalho { width: min(1160px, calc(100% - 64px)); margin: 0 auto; padding: 28px 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.login-marca { display: inline-flex; align-items: center; gap: 12px; color: #07306d; text-decoration: none; font-size: 21px; font-weight: 800; letter-spacing: .02em; }
+.marca-simbolo { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 13px; background: #07306d; color: white; font-size: 25px; }
+.login-marca small { display: block; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: #64748b; font-weight: 600; margin-top: 1px; }
+.login-voltar { display: flex; gap: 8px; align-items: center; color: #36516c; font-size: 14px; text-decoration: none; font-weight: 600; }
+.login-voltar:hover { color: #0d6efd; text-decoration: underline; }
+.login-principal { width: min(1100px, calc(100% - 64px)); margin: auto; padding: 42px 0 70px; display: grid; grid-template-columns: 1.15fr 1fr; gap: 80px; align-items: center; flex: 1; }
+.login-etiqueta { font-size: 11px; font-weight: 750; letter-spacing: .13em; color: #466583; }
+.login-apresentacao h1 { font-size: clamp(30px, 3.2vw, 43px); line-height: 1.2; letter-spacing: -.04em; margin: 20px 0; color: #102e55; }
+.login-apresentacao h1 span { color: #0c60ca; }
+.login-apresentacao > p { font-size: 16px; line-height: 1.75; color: #586d83; max-width: 440px; }
+.login-ilustracao { max-width: 430px; margin: 32px 0 22px; padding: 20px; background: #eaf1fc; border: 1px solid #d7e4f5; border-radius: 18px; }
+.ilustracao-cabecalho { display: flex; align-items: center; gap: 9px; font-size: 13px; font-weight: 650; margin: 0 0 18px; }
+.ilustracao-quadrado { width: 14px; height: 14px; background: #0d6efd; border-radius: 4px; }
+.ilustracao-pontos { margin-left: auto; font-size: 22px; color: #6b84a1; }
+.ilustracao-documento { display: flex; align-items: center; gap: 14px; border: 1px solid #dce6f3; background: white; border-radius: 10px; padding: 15px; margin-top: 10px; }
+.ilustracao-documento > div { flex: 1; min-width: 0; }
+.ilustracao-documento strong { display: block; font-size: 12px; font-weight: 600; }
+.documento-desenho { width: 26px; height: 32px; border: 2px solid #91b5e7; border-radius: 4px; background: linear-gradient(#b7cdeb,#b7cdeb) 5px 11px / 12px 2px no-repeat, linear-gradient(#b7cdeb,#b7cdeb) 5px 17px / 9px 2px no-repeat; flex-shrink: 0; }
+.ilustracao-linha { display: block; width: 70%; height: 5px; margin-top: 9px; border-radius: 8px; background: #e9eef5; }
+.ilustracao-linha.curta { width: 50%; }
+.ilustracao-check { color: #246950; font-size: 13px; background: #e9f5ef; border-radius: 50%; width: 23px; height: 23px; display: grid; place-items: center; }
+.ilustracao-base { font-size: 10px; text-align: center; color: #55708e; padding-top: 18px; letter-spacing: .06em; }
+.login-apresentacao .login-publico { font-size: 13px; }
+.login-publico a { color: #0759ba; font-weight: 650; }
+.login-cartao { padding: 38px; background: white; border: 1px solid #e1e8f1; border-radius: 22px; box-shadow: 0 16px 48px rgba(20,48,87,.07); }
+.login-selo { display: inline-block; border-radius: 6px; padding: 6px 9px; background: #eef5ff; font-size: 10px; font-weight: 750; letter-spacing: .09em; color: #0a57b3; }
+.login-cartao h2 { font-size: 27px; line-height: 1.3; letter-spacing: -.03em; margin: 19px 0 9px; }
+.login-instrucao { font-size: 14px; color: #62748a; line-height: 1.6; margin: 0 0 28px; }
+.login-campo { margin-bottom: 20px; }
+.login-campo label { display: block; font-size: 13px; font-weight: 650; margin-bottom: 8px; }
+.login-campo input { width: 100%; min-height: 49px; padding: 12px 14px; border: 1px solid #cbd6e3; border-radius: 9px; background: #fff; font: inherit; font-size: 15px; color: #18324d; }
+.login-campo input::placeholder { color: #6b7e92; }
+.login-senha { position: relative; }
+.login-senha.com-alternador input { padding-right: 85px; }
+.login-senha button { position: absolute; right: 5px; top: 5px; height: 39px; padding: 0 10px; background: transparent; color: #0a57b3; border: 0; border-radius: 5px; font: inherit; font-size: 12px; font-weight: 650; cursor: pointer; }
+.login-senha button:hover { background: #eef5ff; }
+.login-entrar { display: flex; justify-content: center; align-items: center; gap: 16px; width: 100%; min-height: 49px; margin-top: 26px; padding: 13px 20px; background: #0d6efd; border: 1px solid #0d6efd; color: #fff; font: inherit; font-size: 14px; font-weight: 650; border-radius: 9px; cursor: pointer; }
+.login-entrar:hover { background: #0b5ed7; border-color: #0b5ed7; }
+.pagina-login :focus-visible { outline: 3px solid #75b5ff; outline-offset: 3px; }
+.login-ajuda { text-align: center; font-size: 12px; line-height: 1.8; color: #63758a; border-top: 1px solid #e9eef5; margin: 26px 0 0; padding-top: 20px; }
+.login-aviso { padding: 12px 14px; border: 1px solid; border-radius: 9px; font-size: 13px; line-height: 1.6; margin: 0 0 22px; }
+.login-aviso strong { display: block; }
+.login-aviso-erro { color: #862b36; background: #fff3f4; border-color: #f2cbd1; }
+.login-aviso-alerta { color: #735017; background: #fff8e8; border-color: #efdaaa; }
+@media (max-width: 900px) { .login-principal { gap: 35px; } .login-cartao { padding: 28px; } }
+@media (max-width: 700px) {
+ .login-cabecalho { width: calc(100% - 40px); padding: 22px 0; }
+ .login-marca { font-size: 18px; } .login-voltar { font-size: 12px; }
+ .login-principal { width: min(460px, calc(100% - 40px)); grid-template-columns: 1fr; gap: 25px; padding: 18px 0 40px; }
+ .login-apresentacao { text-align: center; } .login-etiqueta { font-size: 9px; }
+ .login-apresentacao h1 { font-size: 28px; margin: 12px 0; }
+ .login-apresentacao > p { font-size: 14px; margin-inline: auto; }
+ .login-ilustracao { display: none; }
+ .login-apresentacao .login-publico { margin-bottom: 0; font-size: 12px; }
+ .login-cartao { padding: 25px; border-radius: 17px; }
+ .login-cartao h2 { font-size: 25px; }
+}
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }

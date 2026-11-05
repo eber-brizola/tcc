@@ -18,5 +18,13 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
         'samesite' => 'Lax'
     ]);
 
-    session_start();
+    if (!session_start()) {
+        error_log('Não foi possível iniciar a sessão.');
+        http_response_code(503);
+        header('Content-Type: text/plain; charset=UTF-8');
+        exit('O serviço está temporariamente indisponível. Tente novamente.');
+    }
 }
+
+// Páginas autenticadas e formulários de login não devem ficar no cache.
+header('Cache-Control: no-store');

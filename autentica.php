@@ -30,6 +30,7 @@ if (
     !filter_var($email, FILTER_VALIDATE_EMAIL)
     || strlen($email) > 255
     || $senha === ''
+    || strpos($senha, "\0") !== false
     || strlen($senha) > 4096
 ) {
     falharLogin();
@@ -37,6 +38,7 @@ if (
 
 // Identifica as tentativas para esse e-mail.
 $chave = hash('sha256', strtolower($email));
+$transacaoAberta = false;
 
 try {
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
@@ -52,6 +54,11 @@ try {
             WHERE inicio_janela < NOW() - INTERVAL 1 DAY'
         );
     }
+
+    // Mantém o contador bloqueado até concluir a conferência da senha.
+    // Assim, sessões diferentes não leem ou apagam tentativas em paralelo.
+    mysqli_begin_transaction($conexao);
+    $transacaoAberta = true;
 
     // Registra a tentativa antes de conferir a senha.
     // Depois de 15 minutos, começa uma nova janela.
@@ -81,7 +88,8 @@ try {
         $conexao,
         'SELECT tentativas
          FROM login_tentativas
-         WHERE chave = ?'
+         WHERE chave = ?
+         FOR UPDATE'
     );
 
     mysqli_stmt_bind_param($stmt, 's', $chave);
@@ -99,6 +107,8 @@ try {
     }
 
     if ((int) $controle['tentativas'] > 5) {
+        mysqli_commit($conexao);
+        $transacaoAberta = false;
         $_SESSION['login_bloqueado'] = true;
 
         header('Location: login/', true, 303);
@@ -144,6 +154,9 @@ try {
         || (int) $operador['ativo'] !== 1
         || !in_array($operador['nivel'], ['adm', 'root'], true)
     ) {
+        // A senha incorreta também deve deixar a tentativa gravada.
+        mysqli_commit($conexao);
+        $transacaoAberta = false;
         falharLogin();
     }
 
@@ -157,7 +170,17 @@ try {
     mysqli_stmt_execute($stmt);
     mysqli_stmt_close($stmt);
 
+    mysqli_commit($conexao);
+    $transacaoAberta = false;
+
 } catch (Throwable $erro) {
+    if ($transacaoAberta) {
+        try {
+            mysqli_rollback($conexao);
+        } catch (Throwable $erroRollback) {
+            error_log($erroRollback->getMessage());
+        }
+    }
     error_log($erro->getMessage());
 
     http_response_code(503);
@@ -167,7 +190,13 @@ try {
 }
 
 // Cria uma nova identificação para a sessão autenticada.
-session_regenerate_id(true);
+if (!session_regenerate_id(true)) {
+    $_SESSION = [];
+    error_log('Não foi possível renovar a sessão no login.');
+    http_response_code(503);
+    header('Content-Type: text/plain; charset=UTF-8');
+    exit('Login temporariamente indisponível. Tente novamente.');
+}
 
 // Descarta dados da sessão anterior, incluindo o token CSRF.
 $_SESSION = [];

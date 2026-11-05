@@ -1,7 +1,4 @@
-<footer>
-
-<p>
-© 2026 CEEDO - Administração
-</p>
-
-</footer>
+<?php
+$prefixoRodape = '../';
+$rodapeAdministrativo = true;
+require __DIR__ . '/../../includes/footer.php';

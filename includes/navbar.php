@@ -11,6 +11,9 @@
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#menuPrincipal"
+            aria-controls="menuPrincipal"
+            aria-expanded="false"
+            aria-label="Abrir menu principal"
         >
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -23,6 +26,13 @@
                     <a class="nav-link" href="index.php">
                         <i class="bi bi-house-door"></i>
                         Início
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="documentos.php">
+                        <i class="bi bi-files" aria-hidden="true"></i>
+                        Documentos
                     </a>
                 </li>
 

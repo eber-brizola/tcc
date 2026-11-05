@@ -59,6 +59,10 @@ $documentos = mysqli_stmt_get_result($stmtDocumentos);
     <section class="text-center mb-5">
         <h1><?= htmlspecialchars($categoria["nome_categoria"]) ?></h1>
         <p class="text-muted">Documentos disponíveis nesta categoria.</p>
+        <a href="documentos.php?categoria=<?= (int) $idCategoria ?>" class="btn btn-primary">
+            <i class="bi bi-search" aria-hidden="true"></i>
+            Pesquisar e filtrar nesta categoria
+        </a>
     </section>
 
     <?php if (mysqli_num_rows($documentos) > 0): ?>
@@ -86,6 +90,7 @@ $documentos = mysqli_stmt_get_result($stmtDocumentos);
                               <a
                                 href="visualizar.php?id=<?= $documento["id_documento"] ?>"
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 class="btn btn-primary btn-sm"
                             >
                                 Visualizar
@@ -114,4 +119,7 @@ $documentos = mysqli_stmt_get_result($stmtDocumentos);
 
 </main>
 
-<?php include "includes/script.php"; ?>
+<?php include "includes/footer.php"; ?>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
