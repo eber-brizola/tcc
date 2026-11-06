@@ -7,7 +7,7 @@
 
 <span class="small text-secondary"><i class="bi bi-person-circle" aria-hidden="true"></i> Área administrativa</span>
 
-
+<link rel="stylesheet" href="assets/css/style.css">
 </div>
 
 </nav>

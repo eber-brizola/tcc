@@ -2,14 +2,23 @@
 
 require_once __DIR__ . '/includes/verifica_login.php';
 require_once __DIR__ . '/conexao.php';
+require_once __DIR__ . '/../includes/icones_categorias.php';
 
-function retornarCategoria($mensagem, $tipo = 'erro')
-{
+function retornarCategoria(
+    string $mensagem,
+    string $tipo = 'erro'
+): void {
     header('Location: categorias.php?' . http_build_query([
         'mensagem' => $mensagem,
         'tipo' => $tipo
     ]), true, 303);
 
+    exit;
+}
+
+// Só aceita envios pelo formulário.
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    header('Location: categorias.php', true, 303);
     exit;
 }
 
@@ -22,6 +31,17 @@ $nomeCategoria = is_string($_POST['nome_categoria'] ?? null)
 $descricao = is_string($_POST['info_categoria'] ?? null)
     ? trim($_POST['info_categoria'])
     : '';
+
+$icone = is_string($_POST['icone'] ?? null)
+    ? $_POST['icone']
+    : '';
+
+// Confere se o ícone pertence à lista permitida.
+$iconesPermitidos = iconesCategorias();
+
+if (!isset($iconesPermitidos[$icone])) {
+    retornarCategoria('Selecione um ícone válido para a categoria.');
+}
 
 if ($nomeCategoria === '') {
     retornarCategoria('Informe o nome da categoria.');
@@ -41,6 +61,7 @@ if (mb_strlen($descricao, 'UTF-8') > 255) {
 }
 
 try {
+    // Verifica se já existe uma categoria com esse nome.
     $sql = 'SELECT id_categoria
             FROM categorias
             WHERE nome_categoria = ?
@@ -67,8 +88,12 @@ try {
         retornarCategoria('Essa categoria já existe.');
     }
 
-    $sql = 'INSERT INTO categorias (nome_categoria, info_categoria)
-            VALUES (?, ?)';
+    // Salva o nome, a descrição e o ícone escolhido.
+    $sql = 'INSERT INTO categorias (
+                nome_categoria,
+                info_categoria,
+                icone
+            ) VALUES (?, ?, ?)';
 
     $stmt = mysqli_prepare($conexao, $sql);
 
@@ -78,9 +103,10 @@ try {
 
     mysqli_stmt_bind_param(
         $stmt,
-        'ss',
+        'sss',
         $nomeCategoria,
-        $descricao
+        $descricao,
+        $icone
     );
 
     if (!mysqli_stmt_execute($stmt)) {
@@ -90,7 +116,9 @@ try {
     mysqli_stmt_close($stmt);
 
     retornarCategoria('Categoria adicionada com sucesso.', 'sucesso');
+
 } catch (mysqli_sql_exception $erro) {
     error_log($erro->getMessage());
+
     retornarCategoria('Não foi possível cadastrar a categoria.');
 }

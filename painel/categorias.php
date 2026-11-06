@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/verifica_login.php';
+require_once __DIR__ . '/../includes/icones_categorias.php';
 require_once "conexao.php";
 
 $mensagem = is_string($_GET['mensagem'] ?? null)
@@ -83,6 +84,37 @@ include "includes/sidebar.php";
                             Opcional. Esse texto aparecerá no card da categoria.
                         </div>
                     </div>
+                    <fieldset class="mb-4">
+                        <legend class="fs-6 fw-semibold">
+                            Ícone da categoria
+                        </legend>   
+
+                        <div class="d-flex flex-wrap gap-2">
+                            <?php foreach (iconesCategorias() as $classe => $rotulo): ?>
+                                <input
+                                    type="radio"
+                                    class="btn-check"
+                                    name="icone"
+                                    id="icone-<?= htmlspecialchars($classe, ENT_QUOTES, 'UTF-8') ?>"
+                                    value="<?= htmlspecialchars($classe, ENT_QUOTES, 'UTF-8') ?>"
+                                    <?= $classe === 'bi-folder' ? 'checked' : '' ?>
+                                    required
+                                >
+
+                                <label
+                                    class="btn btn-outline-primary d-inline-flex align-items-center gap-2"
+                                    for="icone-<?= htmlspecialchars($classe, ENT_QUOTES, 'UTF-8') ?>"
+                                >
+                                    <i
+                                        class="bi <?= htmlspecialchars($classe, ENT_QUOTES, 'UTF-8') ?>"
+                                        aria-hidden="true"
+                                    ></i>
+
+                                    <?= htmlspecialchars($rotulo, ENT_QUOTES, 'UTF-8') ?>
+                                </label>
+                            <?php endforeach; ?>
+                        </div>
+                    </fieldset>
 
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary">

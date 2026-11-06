@@ -1,14 +1,18 @@
 <?php
-require_once "painel/conexao.php";
+
+require_once __DIR__ . '/painel/conexao.php';
+require_once __DIR__ . '/includes/icones_categorias.php';
+
+$iconesPermitidos = iconesCategorias();
 
 $sqlCategorias = "SELECT id_categoria,
                          nome_categoria,
-                         info_categoria
+                         info_categoria,
+                         icone
                   FROM categorias
                   ORDER BY nome_categoria ASC";
 
 $categorias = mysqli_query($conexao, $sqlCategorias);
-
 
 $sqlDocumentos = "SELECT documentos.id_documento,
                          documentos.nome,
@@ -23,356 +27,279 @@ $sqlDocumentos = "SELECT documentos.id_documento,
 
 $ultimosDocumentos = mysqli_query($conexao, $sqlDocumentos);
 
-
-
-
+// Cores e descrições padrão.
+// O ícone agora vem da escolha salva no banco.
+$estilos = [
+    'atas' => [
+        'text-success',
+        'Atas de reuniões e conselhos.'
+    ],
+    'leis' => [
+        'text-danger',
+        'Leis, normas e resoluções.'
+    ],
+    'regimentos' => [
+        'text-warning',
+        'Regulamentos internos.'
+    ],
+    'trabalhos' => [
+        'text-primary',
+        'Trabalhos e atividades escolares.'
+    ],
+    'projetos' => [
+        'text-warning',
+        'Projetos desenvolvidos pela instituição.'
+    ],
+    'editais' => [
+        'text-danger',
+        'Editais e chamadas públicas.'
+    ],
+    'calendários' => [
+        'text-primary',
+        'Datas e eventos do calendário escolar.'
+    ],
+    'relatórios' => [
+        'text-success',
+        'Relatórios e resultados da instituição.'
+    ],
+    'comunicados' => [
+        'text-primary',
+        'Avisos e comunicados da escola.'
+    ],
+    'contratos' => [
+        'text-secondary',
+        'Contratos e acordos institucionais.'
+    ],
+    'prestações de contas' => [
+        'text-success',
+        'Demonstrativos e prestação de contas.'
+    ],
+    'cardápios' => [
+        'text-danger',
+        'Cardápios da alimentação escolar.'
+    ],
+    'horários' => [
+        'text-primary',
+        'Horários de aulas e atividades.'
+    ],
+    'eventos' => [
+        'text-success',
+        'Eventos e atividades escolares.'
+    ],
+    'manuais' => [
+        'text-secondary',
+        'Manuais e orientações.'
+    ]
+];
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>CEEDO - Portal de Transparência Escolar</title>
 
-    <!-- Bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
 
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
 
-    <!-- CSS próprio -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/rodape.css">
-
-<link rel="stylesheet" href="assets/css/visual.css">
+    <link rel="stylesheet" href="assets/css/visual.css">
 </head>
 
 <body>
 
+<?php include __DIR__ . '/includes/navbar.php'; ?>
 
-<!-- Navbar -->
-
-<?php include('includes/navbar.php')?>
-
-
-
-<div class="container">
-
+<main class="container">
 
     <!-- Banner -->
-
     <div class="hero">
-
-
-        <h1>
-            Portal de Transparência Escolar
-        </h1>
-
+        <h1>Portal de Transparência Escolar</h1>
 
         <p class="lead mt-3">
-
             Consulte documentos, atas, leis, regimentos e trabalhos
             disponibilizados pela instituição.
-
         </p>
-
 
         <a href="documentos.php" class="btn btn-light btn-lg mt-3">
             <i class="bi bi-search" aria-hidden="true"></i>
             Ver documentos
         </a>
-
-
     </div>
 
-
-
-
     <!-- Categorias -->
-
     <section class="mt-5">
-
-
-        <h2 class="text-center mb-4">
-
-            Categorias
-
-        </h2>
-
+        <h2 class="text-center mb-4">Categorias</h2>
 
         <div class="row g-4 justify-content-center">
 
+            <?php if (mysqli_num_rows($categorias) > 0): ?>
 
+                <?php while ($categoria = mysqli_fetch_assoc($categorias)): ?>
+                    <?php
+                    $nomeOriginal = trim($categoria['nome_categoria']);
 
-          <?php while ($categoria = mysqli_fetch_assoc($categorias)): ?>
+                    $nomeExibicao =
+                        mb_strtoupper(
+                            mb_substr($nomeOriginal, 0, 1, 'UTF-8'),
+                            'UTF-8'
+                        )
+                        . mb_substr($nomeOriginal, 1, null, 'UTF-8');
 
-    <?php
-    $nomeOriginal = trim($categoria["nome_categoria"]);
+                    $nomeCategoria = mb_strtolower(
+                        $nomeOriginal,
+                        'UTF-8'
+                    );
 
-    // Deixa somente a primeira letra maiúscula, preservando o restante.
-    $nomeExibicao =
-        mb_strtoupper(mb_substr($nomeOriginal, 0, 1, "UTF-8"), "UTF-8")
-        . mb_substr($nomeOriginal, 1, null, "UTF-8");
+                    [$cor, $descricaoPadrao] = $estilos[$nomeCategoria] ?? [
+                        'text-primary',
+                        'Documentos disponíveis nesta categoria.'
+                    ];
 
-    $nomeCategoria = mb_strtolower($nomeOriginal, "UTF-8");
+                    // Só exibe ícones presentes na lista permitida.
+                    $iconeSalvo = $categoria['icone'] ?? 'bi-folder';
 
-    // Ícone, cor e descrição de cada categoria.
-    $estilos = [
-        "atas" => [
-            "bi-file-earmark-text",
-            "text-success",
-            "Atas de reuniões e conselhos."
-        ],
-        "leis" => [
-            "bi-bank",
-            "text-danger",
-            "Leis, normas e resoluções."
-        ],
-        "regimentos" => [
-            "bi-folder-check",
-            "text-warning",
-            "Regulamentos internos."
-        ],
-        "trabalhos" => [
-            "bi-journal-text",
-            "text-primary",
-            "Trabalhos e atividades escolares."
-        ],
-        "projetos" => [
-            "bi-lightbulb",
-            "text-warning",
-            "Projetos desenvolvidos pela instituição."
-        ],
-        "editais" => [
-            "bi-megaphone",
-            "text-danger",
-            "Editais e chamadas públicas."
-        ],
-        "calendários" => [
-            "bi-calendar-event",
-            "text-primary",
-            "Datas e eventos do calendário escolar."
-        ],
-        "relatórios" => [
-            "bi-bar-chart",
-            "text-success",
-            "Relatórios e resultados da instituição."
-        ],
-        "comunicados" => [
-            "bi-chat-left-text",
-            "text-primary",
-            "Avisos e comunicados da escola."
-        ],
-        "contratos" => [
-            "bi-pen",
-            "text-secondary",
-            "Contratos e acordos institucionais."
-        ],
-        "prestações de contas" => [
-            "bi-cash-coin",
-            "text-success",
-            "Demonstrativos e prestação de contas."
-        ],
-        "cardápios" => [
-            "bi-cup-hot",
-            "text-danger",
-            "Cardápios da alimentação escolar."
-        ],
-        "horários" => [
-            "bi-clock",
-            "text-primary",
-            "Horários de aulas e atividades."
-        ],
-        "eventos" => [
-            "bi-calendar-check",
-            "text-success",
-            "Eventos e atividades escolares."
-        ],
-        "manuais" => [
-            "bi-book",
-            "text-secondary",
-            "Manuais e orientações."
-        ]
-    ];
+                    $icone = (
+                        is_string($iconeSalvo)
+                        && isset($iconesPermitidos[$iconeSalvo])
+                    ) ? $iconeSalvo : 'bi-folder';
 
-    [$icone, $cor, $descricao] = $estilos[$nomeCategoria] ?? [
-        "bi-folder",
-        "text-warning",
-        "Documentos disponíveis nesta categoria."
-    ];
-    ?>
+                    $descricaoExibida = trim(
+                        $categoria['info_categoria'] ?? ''
+                    );
 
-    <div class="col-md-6 col-lg-3">
+                    if ($descricaoExibida === '') {
+                        $descricaoExibida = $descricaoPadrao;
+                    }
+                    ?>
 
-        <a
-            href="categoria.php?id=<?= $categoria["id_categoria"] ?>"
-            class="text-decoration-none text-dark"
-        >
-            <div class="card shadow-sm h-100 categoria-card">
+                    <div class="col-md-6 col-lg-3">
+                        <a
+                            href="categoria.php?id=<?= (int) $categoria['id_categoria'] ?>"
+                            class="text-decoration-none text-dark"
+                        >
+                            <div class="card shadow-sm h-100 categoria-card">
+                                <div class="card-body text-center">
 
-                <div class="card-body text-center">
+                                    <i
+                                        class="bi <?= htmlspecialchars($icone, ENT_QUOTES, 'UTF-8') ?> fs-1 <?= htmlspecialchars($cor, ENT_QUOTES, 'UTF-8') ?>"
+                                        aria-hidden="true"
+                                    ></i>
 
-                    <i class="bi <?= $icone ?> fs-1 <?= $cor ?>"></i>
+                                    <h4 class="mt-3">
+                                        <?= htmlspecialchars($nomeExibicao, ENT_QUOTES, 'UTF-8') ?>
+                                    </h4>
 
-                    <h4 class="mt-3">
-                        <?= htmlspecialchars($nomeExibicao, ENT_QUOTES, "UTF-8") ?>
-                    </h4>
+                                    <p class="text-muted">
+                                        <?= htmlspecialchars($descricaoExibida, ENT_QUOTES, 'UTF-8') ?>
+                                    </p>
 
-                    <p class="text-muted">
-                        <?php
-                        $descricaoExibida = trim($categoria['info_categoria'] ?? '');
+                                </div>
+                            </div>
+                        </a>
+                    </div>
 
-                        if ($descricaoExibida === '') {
-                            $descricaoExibida = $descricao;
-                        }
-                        ?>
+                <?php endwhile; ?>
 
-                        <?= htmlspecialchars($descricaoExibida, ENT_QUOTES, 'UTF-8') ?>
+            <?php else: ?>
+
+                <div class="col-12">
+                    <p class="text-center text-muted">
+                        Nenhuma categoria cadastrada ainda.
                     </p>
-
                 </div>
 
-            </div>
-        </a>
+            <?php endif; ?>
 
-    </div>
-
-<?php endwhile; ?>
         </div>
-
-
     </section>
 
-
-
-
-
-    <!-- Documentos -->
-
-
+    <!-- Últimos documentos -->
     <section id="documentos" class="mt-5 mb-5">
-
-
         <h2 class="text-center mb-4">
-
             Últimos Documentos Publicados
-
         </h2>
 
         <div class="table-responsive">
-
-
             <table class="table table-striped table-hover">
-
-
                 <thead class="table-primary">
-
-
                     <tr>
-
-                        <th>Documento</th>
-
-                        <th>Categoria</th>
-
-                        <th>Data</th>
-
-                        <th>Ações</th>
-
+                        <th scope="col">Documento</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Ações</th>
                     </tr>
-
-
                 </thead>
 
+                <tbody>
+                    <?php if (mysqli_num_rows($ultimosDocumentos) > 0): ?>
 
-<tbody>
+                        <?php while ($documento = mysqli_fetch_assoc($ultimosDocumentos)): ?>
+                            <tr>
+                                <td>
+                                    <?= htmlspecialchars($documento['nome'], ENT_QUOTES, 'UTF-8') ?>
+                                </td>
 
-    <?php if (mysqli_num_rows($ultimosDocumentos) > 0): ?>
+                                <td>
+                                    <?= htmlspecialchars($documento['nome_categoria'], ENT_QUOTES, 'UTF-8') ?>
+                                </td>
 
-        <?php while ($documento = mysqli_fetch_assoc($ultimosDocumentos)): ?>
+                                <td>
+                                    <?= date('d/m/Y', strtotime($documento['data_upload'])) ?>
+                                </td>
 
-            <tr>
+                                <td>
+                                    <a
+                                        href="visualizar.php?id=<?= (int) $documento['id_documento'] ?>"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="btn btn-primary btn-sm"
+                                    >
+                                        <i class="bi bi-eye" aria-hidden="true"></i>
+                                        Visualizar
+                                    </a>
 
-                <td>
-                    <?= htmlspecialchars($documento["nome"]) ?>
-                </td>
+                                    <a
+                                        href="download.php?id=<?= (int) $documento['id_documento'] ?>"
+                                        class="btn btn-outline-primary btn-sm"
+                                    >
+                                        <i class="bi bi-download" aria-hidden="true"></i>
+                                        Download
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php endwhile; ?>
 
-                <td>
-                    <?= htmlspecialchars($documento["nome_categoria"]) ?>
-                </td>
+                    <?php else: ?>
 
-                <td>
-                    <?= date("d/m/Y", strtotime($documento["data_upload"])) ?>
-                </td>
+                        <tr>
+                            <td colspan="4" class="text-center text-muted">
+                                Nenhum documento publicado ainda.
+                            </td>
+                        </tr>
 
-                <td>
-
-                    <a
-                        href="visualizar.php?id=<?= $documento["id_documento"] ?>"
-                        target="_blank"
-                        class="btn btn-primary btn-sm"
-                    >
-                        <i class="bi bi-eye" aria-hidden="true"></i>
-                        Visualizar
-                    </a>
-
-                    <a
-                        href="download.php?id=<?= $documento["id_documento"] ?>"
-                        class="btn btn-outline-primary btn-sm"
-                    >
-                        <i class="bi bi-download" aria-hidden="true"></i>
-                        Download
-                    </a>
-
-                </td>
-
-            </tr>
-
-        <?php endwhile; ?>
-
-    <?php else: ?>
-
-        <tr>
-            <td colspan="4" class="text-center text-muted">
-                Nenhum documento publicado ainda.
-            </td>
-        </tr>
-
-    <?php endif; ?>
-
-</tbody>
-
-
+                    <?php endif; ?>
+                </tbody>
             </table>
-
-
         </div>
-
-
     </section>
 
-
-
-</div>
-
-
-
-
+</main>
 
 <?php require __DIR__ . '/includes/footer.php'; ?>
 
-
-
-
-
-<!-- Bootstrap JS -->
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-
 </body>
-
 </html>
