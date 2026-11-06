@@ -28,6 +28,13 @@ $itensMenu = [
     ]
 ];
 
+$itensMenu[] = [
+    'url' => 'ajuda.php',
+    'titulo' => 'Ajuda',
+    'icone' => 'bi-question-circle',
+    'paginas' => ['ajuda.php']
+];
+
 if (($_SESSION['usuario_nivel'] ?? null) === 'root') {
     $itensMenu[] = [
         'url' => 'operadores.php',
