@@ -53,7 +53,7 @@ $documentos = mysqli_stmt_get_result($stmtDocumentos);
 <main class="container py-5">
 
     <a href="index.php" class="btn btn-outline-primary mb-4">
-        ← Voltar para categorias
+        <i class="bi bi-arrow-left" aria-hidden="true"></i> Voltar para categorias
     </a>
 
     <section class="text-center mb-5">
@@ -93,14 +93,14 @@ $documentos = mysqli_stmt_get_result($stmtDocumentos);
                                 rel="noopener noreferrer"
                                 class="btn btn-primary btn-sm"
                             >
-                                Visualizar
+                                <i class="bi bi-eye" aria-hidden="true"></i> Visualizar
                             </a>
 
                                <a
                                     href="download.php?id=<?= $documento["id_documento"] ?>"
-                                    class="btn btn-success btn-sm"
+                                    class="btn btn-outline-primary btn-sm"
                                 >
-                                    Download
+                                    <i class="bi bi-download" aria-hidden="true"></i> Download
                                 </a>
                             </td>
                         </tr>

@@ -29,7 +29,7 @@ include "includes/sidebar.php";
 
     <div class="container p-4">
 
-        <h2>Categorias</h2>
+        <section class="pagina-top"><div class="d-flex align-items-center gap-3"><span class="pagina-top-icone"><i class="bi bi-tags" aria-hidden="true"></i></span><div><h1>Categorias</h1><p class="text-muted mb-0">Organize as categorias dos documentos da instituição.</p></div></div></section>
 
         <?php if ($mensagem): ?>
             <div class="alert alert-<?= $tipo === "erro" ? "danger" : "success" ?>">
@@ -86,7 +86,7 @@ include "includes/sidebar.php";
 
                     <div class="text-end">
                         <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-plus-circle"></i>
+                            <i class="bi bi-plus-circle" aria-hidden="true"></i>
                             Adicionar categoria
                         </button>
                     </div>
@@ -131,9 +131,9 @@ include "includes/sidebar.php";
 
                                             <a
                                                 href="editar_categoria.php?id=<?= (int) $categoria['id_categoria'] ?>"
-                                                class="btn btn-warning btn-sm"
+                                                class="btn btn-outline-primary btn-sm"
                                             >
-                                                <i class="bi bi-pencil"></i>
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>
                                                 Editar
                                             </a>
 
@@ -155,8 +155,8 @@ include "includes/sidebar.php";
                                                     value="<?= $categoria["id_categoria"] ?>"
                                                 >
 
-                                                <button type="submit" class="btn btn-danger btn-sm">
-                                                    <i class="bi bi-trash"></i>
+                                                <button type="submit" class="btn btn-outline-danger btn-sm">
+                                                    <i class="bi bi-trash" aria-hidden="true"></i>
                                                     Excluir
                                                 </button>
 

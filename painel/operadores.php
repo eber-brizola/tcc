@@ -255,7 +255,7 @@ unset(
                     ADMINISTRAÇÃO
                 </div>
 
-                <h1 class="h2 fw-bold mb-2">Operadores</h1>
+                <h1 class="h2 fw-bold mb-2"><span class="titulo-icone"><i class="bi bi-people" aria-hidden="true"></i></span> Operadores</h1>
 
                 <p class="op-subtitulo mb-0">
                     Consulte as contas que administram o acervo
@@ -416,7 +416,7 @@ unset(
                                                     href="confirmar_promocao.php?id=<?= (int) $operador['id_operador'] ?>"
                                                     class="btn btn-sm btn-outline-primary text-nowrap"
                                                 >
-                                                    Promover a root
+                                                    <i class="bi bi-shield-check" aria-hidden="true"></i> Promover a root
                                                 </a>
                                             <?php endif; ?>
 
@@ -424,6 +424,7 @@ unset(
                                                 href="confirmar_acao_operador.php?id=<?= (int) $operador['id_operador'] ?>&acao=<?= $ativo ? 'desativar' : 'reativar' ?>"
                                                 class="btn btn-sm btn-outline-secondary"
                                             >
+                                                <i class="bi <?= $ativo ? 'bi-pause-circle' : 'bi-play-circle' ?>" aria-hidden="true"></i>
                                                 <?= $ativo ? 'Desativar' : 'Reativar' ?>
                                             </a>
 
@@ -431,7 +432,7 @@ unset(
                                                 href="confirmar_acao_operador.php?id=<?= (int) $operador['id_operador'] ?>&acao=excluir"
                                                 class="btn btn-sm btn-outline-danger"
                                             >
-                                                Excluir
+                                                <i class="bi bi-trash" aria-hidden="true"></i> Excluir
                                             </a>
                                         </div>
                                     <?php else: ?>

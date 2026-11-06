@@ -48,6 +48,7 @@ $ultimosDocumentos = mysqli_query($conexao, $sqlDocumentos);
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/rodape.css">
 
+<link rel="stylesheet" href="assets/css/visual.css">
 </head>
 
 <body>
@@ -314,15 +315,15 @@ $ultimosDocumentos = mysqli_query($conexao, $sqlDocumentos);
                         target="_blank"
                         class="btn btn-primary btn-sm"
                     >
-                        <i class="bi bi-eye"></i>
+                        <i class="bi bi-eye" aria-hidden="true"></i>
                         Visualizar
                     </a>
 
                     <a
                         href="download.php?id=<?= $documento["id_documento"] ?>"
-                        class="btn btn-success btn-sm"
+                        class="btn btn-outline-primary btn-sm"
                     >
-                        <i class="bi bi-download"></i>
+                        <i class="bi bi-download" aria-hidden="true"></i>
                         Download
                     </a>
 

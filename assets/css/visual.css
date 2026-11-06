@@ -1,0 +1,86 @@
+/* Ajustes visuais simples. Bootstrap 5 e Bootstrap Icons já usados pelo portal.
+   Azul: navegação e edição; vermelho: exclusão; verde: status positivo. */
+:root {
+    --acervo-azul: #0d6efd;
+    --acervo-marinho: #07306d;
+    --acervo-borda: #e2e8f0;
+    --acervo-suave: #eef5ff;
+    --painel-azul-escuro: #07306d;
+}
+body { background-color: #f5f7fb; }
+/* Não altera o rodapé ou a estrutura dos formulários de login. */
+.content .pagina-top-icone,
+.content .titulo-icone {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--acervo-suave);
+    color: var(--acervo-azul);
+    font-size: 1.4rem;
+    vertical-align: middle;
+}
+.content .titulo-icone { margin-right: 8px; }
+.content .card {
+    border: 1px solid var(--acervo-borda);
+    border-radius: 16px;
+}
+.content .form-label { font-weight: 600; }
+.content .form-control,
+.content .form-select { min-height: 44px; }
+.content .table { vertical-align: middle; }
+.content .table th { color: #34465b; font-size: .85rem; white-space: nowrap; }
+.content .table td { padding-block: 14px; }
+.content .table td .btn { margin-block: 3px; }
+.content .categoria-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 8px;
+    background: var(--acervo-suave);
+    color: var(--acervo-marinho);
+    font-size: .85rem;
+}
+.content .btn .bi,
+.container .btn .bi,
+.sidebar .menu-item .bi { flex-shrink: 0; line-height: 1; }
+/* Mesma linguagem visual nas páginas públicas. */
+.container .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+.container .btn-sm { min-height: 34px; }
+.categoria-card { border: 1px solid var(--acervo-borda); }
+.categoria-card .card-body > .bi {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 68px;
+    height: 68px;
+    border-radius: 16px;
+    background: var(--acervo-suave);
+    color: var(--acervo-marinho) !important;
+}
+.categoria-card h4 { font-size: 1.2rem; font-weight: 700; overflow-wrap: anywhere; }
+.categoria-card p { overflow-wrap: anywhere; }
+.categoria-card:hover { transform: translateY(-3px); }
+.btn:focus-visible { outline: 3px solid #86b7fe; outline-offset: 3px; }
+@media (max-width: 768px) {
+    .content .container, .content .container-fluid { min-width: 0; }
+    .content h1 { font-size: 1.5rem; }
+    .content .pagina-top > .d-flex { align-items: flex-start !important; }
+    .content .pagina-top-icone, .content .titulo-icone { width: 40px; height: 40px; font-size: 1.2rem; }
+    .content .navbar .container-fluid { gap: 10px; }
+    .hero { padding: 48px 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .categoria-card, .btn { transition: none; }
+    .categoria-card:hover { transform: none; }
+}

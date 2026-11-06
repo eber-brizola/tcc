@@ -24,7 +24,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link" href="index.php">
-                        <i class="bi bi-house-door"></i>
+                        <i class="bi bi-house-door" aria-hidden="true"></i>
                         Início
                     </a>
                 </li>
@@ -38,14 +38,14 @@
 
                 <li class="nav-item">
                     <a class="nav-link" href="categorias.php">
-                        <i class="bi bi-grid"></i>
+                        <i class="bi bi-grid" aria-hidden="true"></i>
                         Categorias
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="btn btn-area-adm ms-lg-2" href="login/">
-                        <i class="bi bi-shield-lock"></i>
+                        <i class="bi bi-shield-lock" aria-hidden="true"></i>
                         Área Administrativa
                     </a>
                 </li>

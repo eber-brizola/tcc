@@ -2,8 +2,8 @@
 /* PREENCHA SEUS DADOS AQUI. Campos vazios de contato não aparecem.
    GitHub: cole o endereço completo, começando por https://github.com/ */
 $dadosRodape = [
-    'escola' => 'COlÉGIO ESTADUAL DE EDUCAÇÃO DOM ORIONE',
-    'autor' => 'Eber J. brizola Berckeuer',
+    'escola' => 'COlÉGIO ESTADUAL Dr. DORVALINO LUCIANO DE SOUZA',
+    'autor' => 'Eber J. Brizola Berckeuer',
     'descricao' => 'Documentos e informações da escola em um só lugar.',
     'endereco' => '',
     'telefone' => '',

@@ -5,7 +5,7 @@ $itensMenu = [
     [
         'url' => 'index.php',
         'titulo' => 'Dashboard',
-        'icone' => 'bi-grid-1x2',
+        'icone' => 'bi-speedometer2',
         'paginas' => ['index.php']
     ],
     [

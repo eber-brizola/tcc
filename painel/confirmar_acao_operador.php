@@ -96,7 +96,7 @@ include __DIR__ . '/includes/sidebar.php';
 
             <section class="card border-0 shadow-sm rounded-4">
                 <div class="card-body p-4 p-md-5">
-                    <h1 class="h3 fw-bold mb-3">
+                    <h1 class="h3 fw-bold mb-3"><span class="titulo-icone"><i class="bi bi-shield-check" aria-hidden="true"></i></span>
                         <?= escaparAcao($dadosAcao['titulo']) ?>
                     </h1>
 
@@ -152,7 +152,7 @@ include __DIR__ . '/includes/sidebar.php';
                                 href="operadores.php"
                                 class="btn btn-outline-secondary"
                             >
-                                Cancelar
+                                <i class="bi bi-x-lg" aria-hidden="true"></i> Cancelar
                             </a>
 
                             <button

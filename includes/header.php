@@ -11,5 +11,6 @@
 
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/rodape.css">
+<link rel="stylesheet" href="assets/css/visual.css">
 </head>
 <body>

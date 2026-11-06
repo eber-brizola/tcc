@@ -12,16 +12,18 @@ unset($_SESSION['nao_autenticado'], $_SESSION['login_bloqueado']);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Entrar — CEEDO | AcervoTech</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/acesso.css">
     <link rel="stylesheet" href="../assets/css/rodape.css">
+<link rel="stylesheet" href="../assets/css/visual.css">
 </head>
 <body class="pagina-login">
     <header class="login-cabecalho">
         <a class="login-marca" href="../index.php" aria-label="CEEDO, página inicial">
-            <span class="marca-simbolo" aria-hidden="true">C</span>
+            <span class="marca-simbolo" aria-hidden="true"><i class="bi bi-building" aria-hidden="true"></i></span>
             <span>CEEDO<small>AcervoTech</small></span>
         </a>
-        <a class="login-voltar" href="../index.php"><span aria-hidden="true">←</span> Voltar ao portal</a>
+        <a class="login-voltar" href="../index.php"><i class="bi bi-arrow-left" aria-hidden="true"></i> Voltar ao portal</a>
     </header>
 
     <main class="login-principal">
@@ -35,7 +37,7 @@ unset($_SESSION['nao_autenticado'], $_SESSION['login_bloqueado']);
                 <div class="ilustracao-documento"><span class="documento-desenho"></span><div><strong>Atas e regimentos</strong><span class="ilustracao-linha curta"></span></div><span class="ilustracao-check">✓</span></div>
                 <div class="ilustracao-base">Organização · Acesso · Transparência</div>
             </div>
-            <p class="login-publico">Quer consultar um arquivo? <a href="../documentos.php">Explore os documentos públicos <span aria-hidden="true">↗</span></a></p>
+            <p class="login-publico">Quer consultar um arquivo? <a href="../documentos.php">Explore os documentos públicos <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i></a></p>
         </section>
 
         <section class="login-cartao" aria-labelledby="titulo-login">
@@ -68,7 +70,7 @@ unset($_SESSION['nao_autenticado'], $_SESSION['login_bloqueado']);
                         <button type="button" id="alternar-senha" aria-controls="senha_operador" aria-label="Mostrar senha" aria-pressed="false" hidden>Mostrar</button>
                     </div>
                 </div>
-                <button type="submit" class="login-entrar">Entrar no painel <span aria-hidden="true">→</span></button>
+                <button type="submit" class="login-entrar">Entrar no painel <i class="bi bi-arrow-right" aria-hidden="true"></i></button>
             </form>
             <p class="login-ajuda">Precisa de acesso ou esqueceu sua senha?<br>Procure o responsável pelo portal na escola.</p>
         </section>

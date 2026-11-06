@@ -301,7 +301,7 @@ include __DIR__ . '/includes/sidebar.php';
                             href="operadores.php"
                             class="btn btn-outline-secondary"
                         >
-                            Cancelar
+                            <i class="bi bi-x-lg" aria-hidden="true"></i> Cancelar
                         </a>
 
                         <button

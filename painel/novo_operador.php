@@ -20,7 +20,7 @@ include __DIR__ . '/includes/sidebar.php';
     <?php include __DIR__ . '/includes/navbar.php'; ?>
 
     <main class="container-fluid p-4">
-        <h1 class="h3 mb-4">Cadastrar administrador</h1>
+        <h1 class="h3 mb-4"><span class="titulo-icone"><i class="bi bi-person-plus" aria-hidden="true"></i></span> Cadastrar administrador</h1>
 
         <?php if ($mensagem !== ''): ?>
             <div
@@ -113,11 +113,11 @@ include __DIR__ . '/includes/sidebar.php';
                     </p>
 
                     <button type="submit" class="btn btn-primary">
-                        Cadastrar administrador
+                        <i class="bi bi-person-plus" aria-hidden="true"></i> Cadastrar administrador
                     </button>
 
                     <a href="index.php" class="btn btn-outline-secondary">
-                        Voltar
+                        <i class="bi bi-arrow-left" aria-hidden="true"></i> Voltar
                     </a>
                 </form>
             </div>

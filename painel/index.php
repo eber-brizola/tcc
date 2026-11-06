@@ -48,7 +48,7 @@ include "includes/sidebar.php";
             <div>
 
                 <p class="text-primary fw-semibold mb-1">
-                    <i class="bi bi-speedometer2"></i>
+                    <i class="bi bi-speedometer2" aria-hidden="true"></i>
                     Visão geral
                 </p>
 
@@ -75,7 +75,7 @@ include "includes/sidebar.php";
                 </a>
 
                 <a href="novo_documento.php" class="btn btn-primary">
-                    <i class="bi bi-cloud-arrow-up"></i>
+                    <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i>
                     Adicionar documento
                 </a>
 
@@ -101,13 +101,13 @@ include "includes/sidebar.php";
 
                             <a href="documentos.php" class="dashboard-link">
                                 Gerenciar documentos
-                                <i class="bi bi-arrow-right"></i>
+                                <i class="bi bi-arrow-right" aria-hidden="true"></i>
                             </a>
 
                         </div>
 
                         <div class="dashboard-icon icon-primary">
-                            <i class="bi bi-file-earmark-text"></i>
+                            <i class="bi bi-files" aria-hidden="true"></i>
                         </div>
 
                     </div>
@@ -132,13 +132,13 @@ include "includes/sidebar.php";
 
                             <a href="categorias.php" class="dashboard-link">
                                 Gerenciar categorias
-                                <i class="bi bi-arrow-right"></i>
+                                <i class="bi bi-arrow-right" aria-hidden="true"></i>
                             </a>
 
                         </div>
 
                         <div class="dashboard-icon icon-success">
-                            <i class="bi bi-folder2-open"></i>
+                            <i class="bi bi-tags" aria-hidden="true"></i>
                         </div>
 
                     </div>
@@ -174,7 +174,7 @@ include "includes/sidebar.php";
                         </div>
 
                         <div class="dashboard-icon icon-warning">
-                            <i class="bi bi-clock-history"></i>
+                            <i class="bi bi-clock-history" aria-hidden="true"></i>
                         </div>
 
                     </div>
@@ -203,13 +203,13 @@ include "includes/sidebar.php";
 
                 <a href="novo_documento.php" class="acao-rapida acao-primaria">
 
-                    <i class="bi bi-cloud-arrow-up"></i>
+                    <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i>
 
                     <span class="texto-acao">
                         <strong>Adicionar documento</strong>
                     </span>
 
-                    <i class="bi bi-arrow-right seta-acao"></i>
+                    <i class="bi bi-arrow-right seta-acao" aria-hidden="true"></i>
 
                 </a>
 
@@ -219,13 +219,13 @@ include "includes/sidebar.php";
 
                 <a href="documentos.php" class="acao-rapida acao-sucesso">
 
-                    <i class="bi bi-files"></i>
+                    <i class="bi bi-files" aria-hidden="true"></i>
 
                     <span class="texto-acao">
                         <strong>Gerenciar documentos</strong>
                     </span>
 
-                    <i class="bi bi-arrow-right seta-acao"></i>
+                    <i class="bi bi-arrow-right seta-acao" aria-hidden="true"></i>
 
                 </a>
 
@@ -235,13 +235,13 @@ include "includes/sidebar.php";
 
                 <a href="categorias.php" class="acao-rapida acao-aviso">
 
-                    <i class="bi bi-tags"></i>
+                    <i class="bi bi-tags" aria-hidden="true"></i>
 
                     <span class="texto-acao">
                         <strong>Gerenciar categorias</strong>
                     </span>
 
-                    <i class="bi bi-arrow-right seta-acao"></i>
+                    <i class="bi bi-arrow-right seta-acao" aria-hidden="true"></i>
 
                 </a>
 
@@ -273,7 +273,7 @@ include "includes/sidebar.php";
 
                     <a href="documentos.php" class="btn btn-outline-primary btn-sm">
                         Ver todos
-                        <i class="bi bi-arrow-right"></i>
+                        <i class="bi bi-arrow-right" aria-hidden="true"></i>
                     </a>
 
                 </div>
@@ -300,7 +300,7 @@ include "includes/sidebar.php";
                                     <tr>
 
                                         <td class="fw-semibold">
-                                            <i class="bi bi-file-earmark-text text-primary me-2"></i>
+                                            <i class="bi bi-files text-primary me-2" aria-hidden="true"></i>
                                             <?= htmlspecialchars($documento["nome"]) ?>
                                         </td>
 
@@ -314,7 +314,7 @@ include "includes/sidebar.php";
 
                                         <td>
                                             <span class="badge-status">
-                                                <i class="bi bi-check-circle-fill"></i>
+                                                <i class="bi bi-check-circle-fill" aria-hidden="true"></i>
                                                 Publicado
                                             </span>
                                         </td>

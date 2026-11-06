@@ -27,7 +27,7 @@ include "includes/sidebar.php";
             <div class="d-flex align-items-center gap-3">
 
                 <div class="pagina-top-icone">
-                    <i class="bi bi-files"></i>
+                    <i class="bi bi-files" aria-hidden="true"></i>
                 </div>
 
                 <div>
@@ -47,7 +47,7 @@ include "includes/sidebar.php";
             </div>
 
             <a href="novo_documento.php" class="btn btn-primary">
-                <i class="bi bi-plus-circle"></i>
+                <i class="bi bi-plus-circle" aria-hidden="true"></i>
                 Novo documento
             </a>
 
@@ -74,7 +74,7 @@ include "includes/sidebar.php";
                     </div>
 
                     <span class="documento-contador">
-                        <i class="bi bi-file-earmark-text"></i>
+                        <i class="bi bi-file-earmark-text" aria-hidden="true"></i>
                         <?= $totalDocumentos ?>
                     </span>
 
@@ -103,7 +103,7 @@ include "includes/sidebar.php";
 
                                         <td class="fw-semibold">
 
-                                            <i class="bi bi-file-earmark-text text-primary me-2"></i>
+                                            <i class="bi bi-file-earmark-text text-primary me-2" aria-hidden="true"></i>
 
                                             <?= htmlspecialchars($documento["nome"]) ?>
 
@@ -127,15 +127,15 @@ include "includes/sidebar.php";
                                                 class="btn btn-sm btn-outline-primary"
                                                 title="Visualizar documento"
                                             >
-                                                <i class="bi bi-eye"></i>
+                                                <i class="bi bi-eye" aria-hidden="true"></i>
                                                 Visualizar
                                             </a>
 
                                             <a
                                                 href="editar_documento.php?id=<?= (int) $documento['id_documento'] ?>"
-                                                class="btn btn-sm btn-outline-warning"
+                                                class="btn btn-sm btn-outline-primary"
                                             >
-                                                <i class="bi bi-pencil"></i>
+                                                <i class="bi bi-pencil" aria-hidden="true"></i>
                                                 Editar
                                             </a>
 
@@ -152,7 +152,7 @@ include "includes/sidebar.php";
                                                 >
                                                 <input type="hidden" name="id_documento" value="<?= (int) $documento['id_documento'] ?>">
                                                 <button type="submit" class="btn btn-sm btn-outline-danger" title="Excluir documento">
-                                                    <i class="bi bi-trash"></i>
+                                                    <i class="bi bi-trash" aria-hidden="true"></i>
                                                     Excluir
                                                 </button>
                                             </form>
@@ -168,14 +168,14 @@ include "includes/sidebar.php";
                                 <tr>
                                     <td colspan="4" class="text-center py-5">
 
-                                        <i class="bi bi-folder2-open fs-1 text-muted"></i>
+                                        <i class="bi bi-folder2-open fs-1 text-muted" aria-hidden="true"></i>
 
                                         <p class="text-muted mt-3 mb-3">
                                             Nenhum documento foi cadastrado ainda.
                                         </p>
 
                                         <a href="novo_documento.php" class="btn btn-primary btn-sm">
-                                            Adicionar primeiro documento
+                                            <i class="bi bi-plus-circle" aria-hidden="true"></i> Adicionar primeiro documento
                                         </a>
 
                                     </td>

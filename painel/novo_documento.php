@@ -23,7 +23,7 @@ include "includes/sidebar.php";
             <div class="d-flex align-items-center gap-3">
 
                 <div class="pagina-top-icone">
-                    <i class="bi bi-cloud-arrow-up"></i>
+                    <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i>
                 </div>
 
                 <div>
@@ -41,7 +41,7 @@ include "includes/sidebar.php";
             </div>
 
             <a href="documentos.php" class="btn btn-outline-primary">
-                <i class="bi bi-arrow-left"></i>
+                <i class="bi bi-arrow-left" aria-hidden="true"></i>
                 Voltar
             </a>
 
@@ -122,7 +122,7 @@ include "includes/sidebar.php";
 
                             <label for="arquivo" class="area-upload">
 
-                                <i class="bi bi-file-earmark-arrow-up"></i>
+                                <i class="bi bi-file-earmark-arrow-up" aria-hidden="true"></i>
 
                                 <strong>Selecionar arquivo</strong>
 
@@ -150,12 +150,12 @@ include "includes/sidebar.php";
 
                     <div class="d-flex flex-wrap justify-content-end gap-2">
 
-                        <a href="documentos.php" class="btn btn-light">
-                            Cancelar
+                        <a href="documentos.php" class="btn btn-outline-secondary">
+                            <i class="bi bi-x-lg" aria-hidden="true"></i> Cancelar
                         </a>
 
                         <button type="submit" class="btn btn-primary px-4">
-                            <i class="bi bi-cloud-arrow-up"></i>
+                            <i class="bi bi-cloud-arrow-up" aria-hidden="true"></i>
                             Salvar documento
                         </button>
 

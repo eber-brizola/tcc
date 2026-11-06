@@ -57,10 +57,10 @@ include "includes/sidebar.php";
     <main class="container-fluid p-4 p-lg-5">
 
         <div class="d-flex justify-content-between align-items-center mb-4">
-            <h1 class="h3 mb-0">Editar documento</h1>
+            <h1 class="h3 mb-0"><span class="titulo-icone"><i class="bi bi-files" aria-hidden="true"></i></span> Editar documento</h1>
 
             <a href="documentos.php" class="btn btn-outline-primary">
-                Voltar
+                <i class="bi bi-arrow-left" aria-hidden="true"></i> Voltar
             </a>
         </div>
 
@@ -149,12 +149,12 @@ include "includes/sidebar.php";
                     </div>
 
                     <div class="d-flex justify-content-end gap-2">
-                        <a href="documentos.php" class="btn btn-light">
-                            Cancelar
+                        <a href="documentos.php" class="btn btn-outline-secondary">
+                            <i class="bi bi-x-lg" aria-hidden="true"></i> Cancelar
                         </a>
 
                         <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-check-lg"></i>
+                            <i class="bi bi-check-lg" aria-hidden="true"></i>
                             Salvar alterações
                         </button>
                     </div>
