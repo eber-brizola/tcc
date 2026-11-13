@@ -2,8 +2,12 @@
 
     <div class="container">
 
-        <a class="navbar-brand fw-bold" href="index.php">
-            CEEDO
+        <a class="navbar-brand marca-acervotech" href="index.php">
+            <img
+                src="assets/img/logo-acervotech.png"
+                alt="AcervoTech — CEEDO — Início"
+                class="logo-acervotech"
+            >
         </a>
 
         <button

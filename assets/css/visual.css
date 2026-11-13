@@ -269,3 +269,28 @@ body { background-color: #f5f7fb; }
         padding: 14px 16px;
     }
 }
+
+/* Logo na navbar pública */
+.navbar-portal .marca-acervotech {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 24px;
+    padding-block: 0;
+}
+
+.navbar-portal .logo-acervotech {
+    display: block;
+    width: 220px;
+    max-width: 100%;
+    height: auto;
+}
+
+@media (max-width: 575px) {
+    .navbar-portal .logo-acervotech {
+        width: 175px;
+    }
+
+    .navbar-portal .marca-acervotech {
+        margin-right: 12px;
+    }
+}
