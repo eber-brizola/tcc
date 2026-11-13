@@ -6,7 +6,7 @@ footer.portal-rodape {
 
     box-sizing: border-box;
     margin: 0;
-    padding: 56px max(24px, calc((100% - 1160px) / 2)) 22px;
+    padding: 48px max(24px, calc((100% - 1160px) / 2)) 22px;
     background: var(--rodape-fundo);
     color: var(--rodape-texto);
     font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -24,8 +24,9 @@ footer.portal-rodape {
 .portal-rodape .rodape-conteudo {
     display: grid;
     grid-template-columns: 1.4fr 0.85fr 1fr;
-    gap: 56px;
-    padding-bottom: 38px;
+    align-items: start;
+    gap: 48px;
+    padding-bottom: 34px;
 }
 
 .portal-rodape .rodape-conteudo > * {
@@ -43,47 +44,34 @@ footer.portal-rodape {
     line-height: 1.7;
 }
 
+/* Logo sem caixa, borda ou fundo */
 .portal-rodape .rodape-marca {
-    display: inline-flex;
-    align-items: center;
-    gap: 13px;
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0 0 20px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
 }
 
 .portal-rodape .rodape-logo {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    border: 1px solid var(--rodape-borda);
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.08);
-    color: #fff;
-    font-size: 23px;
-}
-
-.portal-rodape .rodape-marca-texto {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.35;
-}
-
-.portal-rodape .rodape-marca-texto strong {
-    color: #fff;
-    font-size: 23px;
-    font-weight: 750;
-    letter-spacing: 0.5px;
-}
-
-.portal-rodape .rodape-marca-texto > span {
-    color: var(--rodape-texto);
-    font-size: 12px;
-    letter-spacing: 0.4px;
+    display: block;
+    width: 200px;
+    max-width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
 }
 
 .portal-rodape .rodape-escola {
     max-width: 350px;
-    margin-top: 22px;
     color: #fff;
     font-weight: 600;
 }
@@ -97,17 +85,22 @@ footer.portal-rodape {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    margin-top: 18px;
+    margin-top: 16px;
     font-size: 13px;
 }
 
+.portal-rodape .rodape-local .bi-box-arrow-up-right {
+    font-size: 11px;
+}
+
 .portal-rodape .rodape-coluna h2 {
-    margin: 5px 0 20px;
+    margin: 5px 0 18px;
     color: #fff;
     font-size: 14px;
     font-weight: 700;
 }
 
+/* Navegação */
 .portal-rodape .rodape-links {
     display: flex;
     flex-direction: column;
@@ -121,7 +114,6 @@ footer.portal-rodape {
     gap: 11px;
     min-height: 40px;
     padding: 5px 0;
-    transition: color 0.2s;
 }
 
 .portal-rodape .rodape-links i {
@@ -132,17 +124,19 @@ footer.portal-rodape {
     text-align: center;
 }
 
-.portal-rodape .rodape-links a:hover {
+.portal-rodape .rodape-links a:hover,
+.portal-rodape .rodape-local:hover {
     color: #fff;
     text-decoration: underline;
     text-underline-offset: 5px;
 }
 
+/* Autoria e GitHub */
 .portal-rodape .rodape-autor {
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    margin-top: 20px;
+    margin-top: 18px;
 }
 
 .portal-rodape .rodape-autor > i {
@@ -169,8 +163,9 @@ footer.portal-rodape {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    max-width: 100%;
     min-height: 44px;
-    margin-top: 22px;
+    margin-top: 20px;
     padding: 10px 16px;
     border: 1px solid var(--rodape-borda);
     border-radius: 8px;
@@ -178,7 +173,6 @@ footer.portal-rodape {
     color: #fff;
     font-size: 13px;
     font-weight: 600;
-    transition: background-color 0.2s, border-color 0.2s;
 }
 
 .portal-rodape .rodape-github .bi-github {
@@ -197,9 +191,9 @@ footer.portal-rodape {
 .portal-rodape a:focus-visible {
     outline: 2px solid #b8d5ff;
     outline-offset: 5px;
-    border-radius: 4px;
 }
 
+/* Contatos opcionais */
 .portal-rodape .rodape-contato {
     display: flex;
     flex-wrap: wrap;
@@ -214,10 +208,11 @@ footer.portal-rodape {
     display: flex;
     align-items: baseline;
     gap: 9px;
-    overflow-wrap: anywhere;
     min-width: 0;
+    overflow-wrap: anywhere;
 }
 
+/* Linha inferior */
 .portal-rodape .rodape-base {
     display: flex;
     justify-content: space-between;
@@ -241,12 +236,13 @@ footer.portal-rodape {
     border: 0;
 }
 
-/* Mantém compatibilidade caso o rodapé seja usado no painel */
+/* Uso opcional no painel */
 body > footer.portal-rodape--painel {
     margin-left: var(--sidebar-largura, 250px);
     padding: 40px 30px 22px;
 }
 
+/* Telas menores */
 @media (max-width: 1000px) {
     .portal-rodape .rodape-conteudo {
         grid-template-columns: 1.2fr 1fr 1fr;
@@ -282,42 +278,5 @@ body > footer.portal-rodape--painel {
     body > footer.portal-rodape--painel {
         margin-left: 0;
         padding: 32px 24px 20px;
-    }
-
-    .portal-rodape a.rodape-local:hover {
-    color: #fff;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-}
-
-.portal-rodape .rodape-local .bi-box-arrow-up-right {
-    font-size: 11px;
-}
-}
-
-.portal-rodape .rodape-marca {
-    display: inline-flex;
-    align-items: center;
-    max-width: 100%;
-    margin-bottom: 20px;
-    text-decoration: none;
-}
-
-.portal-rodape .rodape-logo {
-    display: block;
-    width: 220px;
-    max-width: 100%;
-    height: auto;
-}
-
-.portal-rodape .rodape-marca:focus-visible {
-    outline: 2px solid #9ec5fe;
-    outline-offset: 6px;
-    border-radius: 6px;
-}
-
-@media (max-width: 575px) {
-    .portal-rodape .rodape-logo {
-        width: 190px;
     }
 }

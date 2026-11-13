@@ -3,9 +3,10 @@ $dadosRodape = [
     'escola' => 'Colégio Estadual Dr. Dorvalino Luciano de Souza',
     'autor' => 'Eber J. Brizola Berckeuer',
     'github' => 'https://github.com/eber-brizola/tcc',
-    'endereco' => '',
-    'telefone' => '',
-    'email' => ''
+    'mapa' => 'https://maps.app.goo.gl/E9Gxuzr1AnqNoGhi7',
+    'endereco' => 'Av. Primeiro de Maio, 564',
+    'telefone' => '(55) 9 9999-9999',
+    'email' => 'exemplo@exemplo.com'
 ];
 
 $prefixoRodape = $prefixoRodape ?? '';
@@ -36,21 +37,15 @@ $githubValido = filter_var($githubRodape, FILTER_VALIDATE_URL)
     <div class="rodape-conteudo">
 
         <div class="rodape-identidade">
-           <a
-                href="<?= htmlspecialchars(
-                    ($prefixoRodape ?? '') . 'index.php',
-                    ENT_QUOTES,
-                    'UTF-8'
-                ) ?>"
+            <a
+                href="<?= $textoRodape($prefixoRodape . 'index.php') ?>"
                 class="rodape-marca"
             >
                 <img
-                    src="<?= htmlspecialchars(
-                        ($prefixoRodape ?? '') . 'assets/img/logo-acervotech.png',
-                        ENT_QUOTES,
-                        'UTF-8'
+                    src="<?= $textoRodape(
+                        $prefixoRodape . 'assets/img/logo-acervotech.png'
                     ) ?>"
-                    alt="AcervoTech — CEEDO"
+                    alt="AcervoTech — CEEDO — Início"
                     class="rodape-logo"
                 >
             </a>
@@ -65,13 +60,13 @@ $githubValido = filter_var($githubRodape, FILTER_VALIDATE_URL)
             </p>
 
             <a
-                href="https://maps.app.goo.gl/qRH3VRTpiixdo7qn9"
+                href="<?= $textoRodape($dadosRodape['mapa']) ?>"
                 class="rodape-local"
                 target="_blank"
                 rel="noopener noreferrer"
             >
                 <i class="bi bi-geo-alt" aria-hidden="true"></i>
-                Cerro Grande — RS
+                <span>Cerro Grande — RS</span>
                 <i class="bi bi-box-arrow-up-right" aria-hidden="true"></i>
                 <span class="rodape-sr"> — abre o mapa em nova aba</span>
             </a>
@@ -81,22 +76,22 @@ $githubValido = filter_var($githubRodape, FILTER_VALIDATE_URL)
             <h2>Explore o portal</h2>
 
             <div class="rodape-links">
-                <a href="<?= $textoRodape($prefixoRodape) ?>index.php">
+                <a href="<?= $textoRodape($prefixoRodape . 'index.php') ?>">
                     <i class="bi bi-house-door" aria-hidden="true"></i>
                     Início
                 </a>
 
-                <a href="<?= $textoRodape($prefixoRodape) ?>documentos.php">
+                <a href="<?= $textoRodape($prefixoRodape . 'documentos.php') ?>">
                     <i class="bi bi-files" aria-hidden="true"></i>
                     Documentos
                 </a>
 
-                <a href="<?= $textoRodape($prefixoRodape) ?>categorias.php">
+                <a href="<?= $textoRodape($prefixoRodape . 'categorias.php') ?>">
                     <i class="bi bi-tags" aria-hidden="true"></i>
                     Categorias
                 </a>
 
-                <a href="<?= $textoRodape($prefixoRodape) ?>painel/">
+                <a href="<?= $textoRodape($prefixoRodape . 'painel/') ?>">
                     <i class="bi bi-person-lock" aria-hidden="true"></i>
                     Painel administrativo
                 </a>
@@ -130,7 +125,7 @@ $githubValido = filter_var($githubRodape, FILTER_VALIDATE_URL)
                     rel="noopener noreferrer"
                 >
                     <i class="bi bi-github" aria-hidden="true"></i>
-                    GitHub do projeto
+                    <span>GitHub do projeto</span>
                     <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
                     <span class="rodape-sr"> — abre em nova aba</span>
                 </a>
