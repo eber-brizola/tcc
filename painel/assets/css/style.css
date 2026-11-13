@@ -36,6 +36,7 @@ body {
 
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
 
     width: var(--sidebar-largura);
     height: 100vh;
@@ -48,48 +49,13 @@ body {
     box-shadow: 4px 0 18px rgba(16, 42, 67, 0.12);
 }
 
-.sidebar-logo,
 .sidebar > nav,
 .sidebar-rodape {
     flex-shrink: 0;
 }
 
-.sidebar-logo {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 4px 8px 14px;
-}
-
-.sidebar .logo-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex: 0 0 42px;
-
-    width: 42px;
-    height: 42px;
-    border-radius: 10px;
-
-    background: #e7f0ff;
-    color: var(--painel-azul);
-    font-size: 1.35rem;
-}
-
-.sidebar h3 {
-    margin: 0;
-    color: #fff;
-    font-size: 1.15rem;
-    font-weight: 800;
-}
-
-.sidebar-logo p {
-    margin: 2px 0 0;
-    color: rgba(255, 255, 255, 0.65);
-    font-size: 0.78rem;
-}
-
 .sidebar hr {
+    width: 100%;
     flex-shrink: 0;
     margin: 12px 0 18px;
     border: 0;
@@ -105,11 +71,9 @@ body {
     letter-spacing: 0.08em;
 }
 
-/* Links e botão Sair usam o mesmo formato.
-   Os seletores adicionais atendem à sidebar antiga também. */
+/* Links do menu e botão Sair compartilham o mesmo formato. */
 
-.sidebar a,
-.sidebar button.sair {
+.sidebar .menu-item {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -137,8 +101,7 @@ body {
     transition: background-color 0.2s, color 0.2s;
 }
 
-.sidebar a i,
-.sidebar button.sair i {
+.sidebar .menu-item i {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -148,33 +111,30 @@ body {
     font-size: 1.1rem;
 }
 
-.sidebar a:hover,
-.sidebar button.sair:hover {
+.sidebar .menu-item:hover {
     background: rgba(255, 255, 255, 0.1);
     color: #fff;
 }
 
-.sidebar a.active {
+.sidebar .menu-item.active {
     background: var(--painel-azul);
     color: #fff;
     box-shadow: 0 4px 12px rgba(13, 110, 253, 0.2);
 }
 
-.sidebar a:focus-visible,
-.sidebar button.sair:focus-visible {
+.sidebar .menu-item:focus-visible {
     outline: 2px solid #9ec5fe;
     outline-offset: 2px;
 }
 
-.sidebar button.sair:hover,
-.sidebar a.sair:hover {
+.sidebar .menu-item.sair:hover {
     background: rgba(220, 53, 69, 0.18);
     color: #ffb4b4;
 }
 
 .sidebar-rodape {
     margin-top: auto;
-    padding-top: 14px;
+    padding-top: 20px;
     border-top: 1px solid rgba(255, 255, 255, 0.14);
 }
 
@@ -504,65 +464,6 @@ footer {
     box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.12);
 }
 
-/* ========================================
-   TELAS MENORES
-======================================== */
-
-@media (max-width: 768px) {
-    .sidebar {
-        position: static;
-        width: 100%;
-        height: auto;
-        padding: 20px 16px;
-        overflow-y: visible;
-    }
-
-    .sidebar-rodape {
-        margin-top: 16px;
-    }
-
-    .content {
-        margin-left: 0;
-    }
-
-    body > footer {
-        margin-left: 0;
-    }
-
-    .content > .navbar {
-        padding: 12px 18px;
-    }
-
-    .dashboard-top,
-    .pagina-top {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 18px;
-        padding: 20px;
-    }
-
-    .dashboard-top-acoes,
-    .dashboard-top-acoes .btn {
-        width: 100%;
-    }
-
-    .dashboard-card .card-body {
-        padding: 20px;
-    }
-
-    .card-number {
-        font-size: 2rem;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .sidebar a,
-    .sidebar button.sair,
-    .acao-rapida {
-        transition: none;
-    }
-}
-
 /* Seletor de ícones: cadastro e edição de categorias */
 .seletor-icones {
     display: grid;
@@ -632,14 +533,6 @@ footer {
     outline-offset: 3px;
 }
 
-@media (max-width: 575.98px) {
-    .seletor-icones {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        padding: 12px;
-        gap: 10px;
-    }
-}
-
 /* Campo e botão de seleção do arquivo */
 .formulario-documento #arquivo {
     padding: 0;
@@ -673,4 +566,163 @@ footer {
 .formulario-documento #arquivo:focus-visible {
     outline: 3px solid #86b7fe;
     outline-offset: 3px;
+}
+
+/* Identidade visual da sidebar */
+
+.sidebar .sidebar-identidade {
+    flex-shrink: 0;
+    width: 100%;
+    margin: 0;
+    padding: 8px 0 16px;
+}
+
+.sidebar .sidebar-identidade-link {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    color: #b8cce0;
+    text-decoration: none;
+}
+
+.sidebar .sidebar-identidade-link:hover {
+    background: transparent;
+    color: #fff;
+    transform: none;
+}
+
+.sidebar .sidebar-identidade-logo {
+    display: block;
+    width: 100%;
+    max-width: 190px;
+    height: auto;
+    margin: 0;
+}
+
+.sidebar .sidebar-identidade-link span {
+    font-size: 0.78rem;
+    font-weight: 400;
+}
+
+.sidebar .sidebar-identidade-link:focus-visible {
+    outline: 2px solid #9ec5fe;
+    outline-offset: 4px;
+    border-radius: 6px;
+}
+
+.sidebar > nav {
+    display: block;
+    width: 100%;
+}
+
+.usuario-topo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    max-width: 100%;
+    min-width: 0;
+}
+
+.usuario-topo-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #dce9ff;
+    border-radius: 50%;
+    background: #eef5ff;
+    color: #0d6efd;
+    font-size: 1.3rem;
+}
+
+.usuario-topo-dados {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.4;
+}
+
+.usuario-topo-nome {
+    color: #102a43;
+    font-size: 0.9rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.usuario-topo-cargo {
+    color: #64748b;
+    font-size: 0.75rem;
+}
+
+/* Telas menores e redução de movimento */
+
+@media (max-width: 768px) {
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        padding: 20px 16px;
+        overflow-y: visible;
+    }
+
+    .sidebar-rodape {
+        margin-top: 16px;
+    }
+
+    .content {
+        margin-left: 0;
+    }
+
+    body > footer {
+        margin-left: 0;
+    }
+
+    .content > .navbar {
+        padding: 12px 18px;
+    }
+
+    .dashboard-top,
+    .pagina-top {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+        padding: 20px;
+    }
+
+    .dashboard-top-acoes,
+    .dashboard-top-acoes .btn {
+        width: 100%;
+    }
+
+    .dashboard-card .card-body {
+        padding: 20px;
+    }
+
+    .card-number {
+        font-size: 2rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .sidebar .menu-item,
+    .acao-rapida {
+        transition: none;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .seletor-icones {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding: 12px;
+        gap: 10px;
+    }
 }

@@ -1,5 +1,5 @@
 <?php
-$paginaAtual = basename($_SERVER['SCRIPT_NAME']);
+$paginaAtual = basename($_SERVER['SCRIPT_NAME'] ?? '');
 
 $itensMenu = [
     [
@@ -25,14 +25,13 @@ $itensMenu = [
         'titulo' => 'Categorias',
         'icone' => 'bi-tags',
         'paginas' => ['categorias.php', 'editar_categoria.php']
+    ],
+    [
+        'url' => 'ajuda.php',
+        'titulo' => 'Ajuda',
+        'icone' => 'bi-question-circle',
+        'paginas' => ['ajuda.php']
     ]
-];
-
-$itensMenu[] = [
-    'url' => 'ajuda.php',
-    'titulo' => 'Ajuda',
-    'icone' => 'bi-question-circle',
-    'paginas' => ['ajuda.php']
 ];
 
 if (($_SESSION['usuario_nivel'] ?? null) === 'root') {
@@ -51,15 +50,15 @@ if (($_SESSION['usuario_nivel'] ?? null) === 'root') {
 ?>
 
 <aside class="sidebar">
-    <div class="sidebar-logo">
-        <div class="logo-icon">
-            <i class="bi bi-building" aria-hidden="true"></i>
-        </div>
-
-        <div>
-            <h3>CEEDO</h3>
-            <p>Painel Administrativo</p>
-        </div>
+    <div class="sidebar-identidade">
+        <a href="index.php" class="sidebar-identidade-link">
+            <img
+                src="../assets/img/logo-acervotech.png"
+                alt="AcervoTech — CEEDO"
+                class="sidebar-identidade-logo"
+            >
+            <span>Painel administrativo</span>
+        </a>
     </div>
 
     <hr>

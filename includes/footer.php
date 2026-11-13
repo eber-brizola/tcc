@@ -36,18 +36,23 @@ $githubValido = filter_var($githubRodape, FILTER_VALIDATE_URL)
     <div class="rodape-conteudo">
 
         <div class="rodape-identidade">
-            <a
-                href="<?= $textoRodape($prefixoRodape) ?>index.php"
+           <a
+                href="<?= htmlspecialchars(
+                    ($prefixoRodape ?? '') . 'index.php',
+                    ENT_QUOTES,
+                    'UTF-8'
+                ) ?>"
                 class="rodape-marca"
             >
-                <span class="rodape-logo">
-                    <i class="bi bi-building" aria-hidden="true"></i>
-                </span>
-
-                <span class="rodape-marca-texto">
-                    <strong>CEEDO</strong>
-                    <span>AcervoTech</span>
-                </span>
+                <img
+                    src="<?= htmlspecialchars(
+                        ($prefixoRodape ?? '') . 'assets/img/logo-acervotech.png',
+                        ENT_QUOTES,
+                        'UTF-8'
+                    ) ?>"
+                    alt="AcervoTech — CEEDO"
+                    class="rodape-logo"
+                >
             </a>
 
             <p class="rodape-escola">

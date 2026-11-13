@@ -294,3 +294,30 @@ body > footer.portal-rodape--painel {
     font-size: 11px;
 }
 }
+
+.portal-rodape .rodape-marca {
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+
+.portal-rodape .rodape-logo {
+    display: block;
+    width: 220px;
+    max-width: 100%;
+    height: auto;
+}
+
+.portal-rodape .rodape-marca:focus-visible {
+    outline: 2px solid #9ec5fe;
+    outline-offset: 6px;
+    border-radius: 6px;
+}
+
+@media (max-width: 575px) {
+    .portal-rodape .rodape-logo {
+        width: 190px;
+    }
+}
