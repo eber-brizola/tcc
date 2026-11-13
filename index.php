@@ -226,75 +226,138 @@ $estilos = [
     </section>
 
     <!-- Últimos documentos -->
-    <section id="documentos" class="mt-5 mb-5">
-        <h2 class="text-center mb-4">
-            Últimos Documentos Publicados
-        </h2>
+   <section id="documentos" class="documentos-recentes">
+    <div class="documentos-cabecalho">
+        <div>
+            <h2>
+                <i class="bi bi-file-earmark-text" aria-hidden="true"></i>
+                Últimos documentos
+            </h2>
 
+            <p>Confira as publicações mais recentes da escola.</p>
+        </div>
+
+        <a href="documentos.php" class="btn btn-outline-primary">
+            Ver todos
+            <i class="bi bi-arrow-right" aria-hidden="true"></i>
+        </a>
+    </div>
+
+    <div class="documentos-bloco">
         <div class="table-responsive">
-            <table class="table table-striped table-hover">
-                <thead class="table-primary">
+            <table class="table tabela-recentes">
+                <caption class="visually-hidden">
+                    Últimos documentos publicados pela escola
+                </caption>
+
+                <thead>
                     <tr>
                         <th scope="col">Documento</th>
                         <th scope="col">Categoria</th>
-                        <th scope="col">Data</th>
-                        <th scope="col">Ações</th>
+                        <th scope="col">Publicação</th>
+                        <th scope="col" class="coluna-acoes">Ações</th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <?php if (mysqli_num_rows($ultimosDocumentos) > 0): ?>
-
-                        <?php while ($documento = mysqli_fetch_assoc($ultimosDocumentos)): ?>
+                        <?php while (
+                            $documento = mysqli_fetch_assoc($ultimosDocumentos)
+                        ): ?>
                             <tr>
                                 <td>
-                                    <?= htmlspecialchars($documento['nome'], ENT_QUOTES, 'UTF-8') ?>
+                                    <div class="documento-identificacao">
+                                        <span class="documento-simbolo">
+                                            <i
+                                                class="bi bi-file-earmark-text"
+                                                aria-hidden="true"
+                                            ></i>
+                                        </span>
+
+                                        <span class="documento-nome">
+                                            <?= htmlspecialchars(
+                                                $documento['nome'],
+                                                ENT_QUOTES | ENT_SUBSTITUTE,
+                                                'UTF-8'
+                                            ) ?>
+                                        </span>
+                                    </div>
                                 </td>
 
                                 <td>
-                                    <?= htmlspecialchars($documento['nome_categoria'], ENT_QUOTES, 'UTF-8') ?>
+                                    <span class="documento-categoria">
+                                        <?= htmlspecialchars(
+                                            $documento['nome_categoria'],
+                                            ENT_QUOTES | ENT_SUBSTITUTE,
+                                            'UTF-8'
+                                        ) ?>
+                                    </span>
+                                </td>
+
+                                <td class="documento-data">
+                                    <?= date(
+                                        'd/m/Y',
+                                        strtotime($documento['data_upload'])
+                                    ) ?>
                                 </td>
 
                                 <td>
-                                    <?= date('d/m/Y', strtotime($documento['data_upload'])) ?>
-                                </td>
+                                    <div class="documento-acoes">
+                                        <a
+                                            href="visualizar.php?id=<?= (int) $documento['id_documento'] ?>"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            class="btn btn-primary btn-sm"
+                                        >
+                                            <i class="bi bi-eye" aria-hidden="true"></i>
+                                            Visualizar
+                                            <span class="visually-hidden">
+                                                — <?= htmlspecialchars(
+                                                    $documento['nome'],
+                                                    ENT_QUOTES | ENT_SUBSTITUTE,
+                                                    'UTF-8'
+                                                ) ?> (nova aba)
+                                            </span>
+                                        </a>
 
-                                <td>
-                                    <a
-                                        href="visualizar.php?id=<?= (int) $documento['id_documento'] ?>"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        class="btn btn-primary btn-sm"
-                                    >
-                                        <i class="bi bi-eye" aria-hidden="true"></i>
-                                        Visualizar
-                                    </a>
-
-                                    <a
-                                        href="download.php?id=<?= (int) $documento['id_documento'] ?>"
-                                        class="btn btn-outline-primary btn-sm"
-                                    >
-                                        <i class="bi bi-download" aria-hidden="true"></i>
-                                        Download
-                                    </a>
+                                        <a
+                                            href="download.php?id=<?= (int) $documento['id_documento'] ?>"
+                                            class="btn btn-outline-primary btn-sm"
+                                        >
+                                            <i
+                                                class="bi bi-download"
+                                                aria-hidden="true"
+                                            ></i>
+                                            Baixar
+                                            <span class="visually-hidden">
+                                                — <?= htmlspecialchars(
+                                                    $documento['nome'],
+                                                    ENT_QUOTES | ENT_SUBSTITUTE,
+                                                    'UTF-8'
+                                                ) ?>
+                                            </span>
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
                         <?php endwhile; ?>
-
                     <?php else: ?>
-
                         <tr>
-                            <td colspan="4" class="text-center text-muted">
-                                Nenhum documento publicado ainda.
+                            <td colspan="4" class="documentos-vazio">
+                                <i
+                                    class="bi bi-folder2-open"
+                                    aria-hidden="true"
+                                ></i>
+
+                                <p>Nenhum documento publicado ainda.</p>
                             </td>
                         </tr>
-
                     <?php endif; ?>
                 </tbody>
             </table>
         </div>
-    </section>
-
+    </div>
+</section>     
 </main>
 
 <?php require __DIR__ . '/includes/footer.php'; ?>

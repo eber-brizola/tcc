@@ -84,3 +84,188 @@ body { background-color: #f5f7fb; }
     .categoria-card, .btn { transition: none; }
     .categoria-card:hover { transform: none; }
 }
+
+/* Últimos documentos da página inicial */
+.documentos-recentes {
+    margin-block: 56px;
+}
+
+.documentos-recentes .documentos-cabecalho {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+    margin-bottom: 22px;
+}
+
+.documentos-recentes .documentos-cabecalho h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0;
+    color: #102a43;
+    font-size: clamp(1.35rem, 3vw, 1.75rem);
+    font-weight: 700;
+}
+
+.documentos-recentes .documentos-cabecalho h2 i {
+    color: #0d6efd;
+}
+
+.documentos-recentes .documentos-cabecalho p {
+    margin: 8px 0 0;
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+.documentos-recentes .documentos-cabecalho > .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 42px;
+    padding: 9px 16px;
+    border-radius: 9px;
+    font-weight: 600;
+}
+
+.documentos-recentes .documentos-bloco {
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 4px 18px rgba(16, 42, 67, 0.04);
+}
+
+.documentos-recentes .tabela-recentes {
+    width: 100%;
+    margin: 0;
+    vertical-align: middle;
+}
+
+.documentos-recentes .tabela-recentes thead th {
+    padding: 16px 20px;
+    border-bottom: 1px solid #e2e8f0;
+    background: #f1f5fb;
+    color: #526174;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.documentos-recentes .tabela-recentes tbody td {
+    padding: 18px 20px;
+    border-bottom: 1px solid #edf1f6;
+    background: #fff;
+    transition: background-color 0.2s;
+}
+
+.documentos-recentes .tabela-recentes tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.documentos-recentes .tabela-recentes tbody tr:hover td {
+    background: #f8fbff;
+}
+
+.documentos-recentes .documento-identificacao {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.documentos-recentes .documento-simbolo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 40px;
+    width: 40px;
+    height: 44px;
+    border-radius: 10px;
+    background: #eef5ff;
+    color: #0d6efd;
+    font-size: 21px;
+}
+
+.documentos-recentes .documento-nome {
+    min-width: 0;
+    color: #102a43;
+    font-size: 0.95rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.documentos-recentes .documento-categoria {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 7px;
+    background: #eef5ff;
+    color: #174b91;
+    font-size: 0.8rem;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.documentos-recentes .documento-data {
+    color: #64748b;
+    font-size: 0.875rem;
+    white-space: nowrap;
+}
+
+.documentos-recentes .coluna-acoes {
+    text-align: right;
+}
+
+.documentos-recentes .documento-acoes {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.documentos-recentes .documento-acoes .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 38px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.documentos-recentes .tabela-recentes td.documentos-vazio {
+    padding: 40px 20px;
+    color: #64748b;
+    text-align: center;
+}
+
+.documentos-recentes .documentos-vazio > i {
+    display: block;
+    margin-bottom: 10px;
+    color: #7c9cc6;
+    font-size: 32px;
+}
+
+.documentos-recentes .documentos-vazio p {
+    margin: 0;
+}
+
+@media (max-width: 767px) {
+    .documentos-recentes {
+        margin-block: 36px;
+    }
+
+    .documentos-recentes .tabela-recentes {
+        min-width: 680px;
+    }
+
+    .documentos-recentes .tabela-recentes thead th,
+    .documentos-recentes .tabela-recentes tbody td {
+        padding: 14px 16px;
+    }
+}
