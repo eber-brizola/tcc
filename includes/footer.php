@@ -5,8 +5,8 @@ $dadosRodape = [
     'github' => 'https://github.com/eber-brizola/tcc',
     'mapa' => 'https://maps.app.goo.gl/E9Gxuzr1AnqNoGhi7',
     'endereco' => 'Av. Primeiro de Maio, 564',
-    'telefone' => '(55) 9 9999-9999',
-    'email' => 'exemplo@exemplo.com'
+    'telefone' => '(55) 9 92034549',
+    'email' => 'imprecao.ceedo@gmail.com'
 ];
 
 $prefixoRodape = $prefixoRodape ?? '';
